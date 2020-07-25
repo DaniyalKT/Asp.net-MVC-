@@ -1,0 +1,38 @@
+﻿@model IEnumerable<DataLayer.Product_Groups>
+
+
+<div class=" widget ">
+    <h5 class="widget_title">دسته بندی ها</h5>
+
+    <ul class="border_bottom_dash list_none widget_categories ">
+        @foreach (var group in Model.Where(g => g.ParentID == null))
+        {
+            <li>
+                <a href="/Archive?selectedGroup=@group.GroupID" >
+                    <span>@group.GroupTitle </span><span class="categories_num">(@group.Product_Groups1.Count)</span>
+                </a>
+
+
+                <ul class=" dropdown-item nav-link nav_item ">
+                    @foreach (var subGroup in Model.Where(g => g.ParentID == group.GroupID))
+                    {
+
+                        <li>
+                            <a href="/Archive?selectedGroup=@subGroup.GroupID">
+                                @subGroup.GroupTitle
+                            </a>
+                        </li>
+
+
+                    }
+                </ul>
+
+
+            </li>
+        }
+    </ul>
+
+</div>
+    
+
+

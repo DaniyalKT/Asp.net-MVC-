@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "لیست محصولات فروشگاه ";
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+}
+@section OrderProduct{
+    @Html.Action("OrderProduct", "Product")
+    }
+
+
+
+@Html.Action("ShowProductInPage", "Product")

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<DataLayer.AboutUs>
+
+@{
+    ViewBag.Title = "درباره ما ";
+}
+
+
+<p>
+    <a class="btn btn-primary btn-lg" href="@Url.Action("Create", "AboutUs")">
+        <i class="glyphicon glyphicon-plus"></i> افزودن
+    </a>
+</p>
+<table class="table"> 
+    <tr>
+
+        <th >
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr id="about_@(item.AboutID)">
+
+        <td class="col-md-2"> 
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Text)
+        </td>
+
+        <td class="col-md-1">
+            <a class="btn btn-warning btn-sm" href="/Admin/AboutUs/Edit/@item.AboutID">
+                <i class="glyphicon glyphicon-edit"></i>
+            </a>
+            <a class="btn btn-danger btn-sm" onclick="deleteAbout(@item.AboutID)">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<script>
+    
+    function deleteAbout(id) {
+
+        $.confirm({
+            title: 'حذف درباره ما!',
+            content: 'آیا از حذف این قسمت مطمئن هستید ؟',
+            buttons: {
+                بله: function () {
+                    $.get("/Admin/AboutUs/Delete/" + id, function () {
+                        $("#about_" + id).hide('slow');
+                    });
+                },
+                خیر: function () {
+
+                },
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,105 @@
+﻿@model IEnumerable<DataLayer.Features>
+
+@{
+    ViewBag.Title = "ویژگی ها";
+}
+
+
+<p>
+    <a class="btn btn-primary btn-lg btn-round" id="CreateFeature">افزودن ویژگی</a>
+</p>
+<table class="table table-bordered table-striped table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FeatureTitle)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr id="feature_@(item.FeatureID)">
+            <td>
+                @Html.DisplayFor(modelItem => item.FeatureTitle)
+            </td>
+            <td>
+                <a class="btn btn-warning btn-xs" onclick="EditFeature(@item.FeatureID)">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </a>
+                <a class="btn btn-danger btn-xs" onclick="DeleteFeature(@item.FeatureID)">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Modal-->
+<!--Ajax Code-->
+@section Scripts{
+   
+    <script src="~/Scripts/modal.js"></script>
+    <script>
+
+        $("#CreateFeature").click(function () {
+            $.get("/Admin/Features/Create", function (result) {
+
+                $("#myModal").modal();
+                $("#myModalLabel").html("افزودن ویژگی");
+                $("#myModalBody").html(result);
+
+            });
+        });
+
+        function EditFeature(id) {
+
+            $.get("/Admin/Features/Edit/" + id, function (result) {
+
+                $("#myModal").modal();
+                $("#myModalLabel").html("ویرایش ویژگی");
+                $("#myModalBody").html(result);
+
+            });
+
+        }
+
+
+        function DeleteFeature(id) {
+
+            $.confirm({
+                title: 'حذف ویژگی!',
+                content: 'آیا از حذف این ویژگی مطمئن هستید ؟',
+                
+                buttons: {
+                    بله: function () {
+                        $.get("/Admin/Features/Delete/" + id, function () {
+                            $("#feature_" + id).hide('slow');
+                        });
+                    },
+                  خیر: function () {
+
+                    },
+                }
+            });
+        }
+
+
+    </script>
+}
+

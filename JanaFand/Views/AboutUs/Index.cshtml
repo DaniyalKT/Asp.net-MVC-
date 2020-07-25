@@ -1,0 +1,68 @@
+﻿@model IEnumerable<DataLayer.AboutUs>
+@{
+    ViewBag.Title = "درباره ما";
+    ViewBag.AccountName = "درباره ما";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="about_wrap">
+                    <div class="row align-items-center">
+                        @foreach (var item in Model)
+                        {
+                            <div id="history-item" class="active">
+                                <h5>@item.Title:</h5><p>@Html.Raw(item.Text)</p><br />
+                            </div>
+                        }
+                        <div class="col-xl-7 col-md-6 animation animated bounceInUp" data-animation="bounceInUp" data-animation-delay="0.3s" style="animation-delay: 0.3s; opacity: 1;">
+                            <div class="about_img fancy_border text-center">
+                                <img data-parallax="{&quot;y&quot;: 30, &quot;smoothness&quot;: 20}" src="/Content/assets/images/about_img.png" alt="About_img" style="transform:translate3d(0px, 7.747px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, 7.747px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlap_shape">
+        <div class="ol_shape25">
+            <div class="animation animated bounceInDown" data-animation="bounceInDown" data-animation-delay="0.5s" style="animation-delay: 0.5s; opacity: 1;">
+                <img data-parallax="{&quot;y&quot;: -30, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape44.png" alt="شکل44" style="transform:translate3d(0px, -7.727px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, -7.727px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+            </div>
+        </div>
+        <div class="ol_shape26">
+            <div class="animation animated zoomIn" data-animation="zoomIn" data-animation-delay="0.5s" style="animation-delay: 0.5s; opacity: 1;">
+                <img data-parallax="{&quot;y&quot;: 30, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape45.png" alt="شکل 45" style="transform:translate3d(0px, 7.747px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, 7.747px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+            </div>
+        </div>
+        <div class="ol_shape27">
+            <div class="animation animated zoomIn" data-animation="zoomIn" data-animation-delay="0.5s" style="animation-delay: 0.5s; opacity: 1;">
+                <img data-parallax="{&quot;y&quot;: 30, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape46.png" alt="شکل46" style="transform:translate3d(0px, 7.747px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, 7.747px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+            </div>
+        </div>
+        <div class="ol_shape28">
+            <div class="animation animated bounceInUp" data-animation="bounceInUp" data-animation-delay="0.5s" style="animation-delay: 0.5s; opacity: 1;">
+                <img data-parallax="{&quot;y&quot;: 30, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape47.png" alt="شکل 47" style="transform:translate3d(0px, 3.449px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, 3.449px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+            </div>
+        </div>
+        <div class="ol_shape29">
+            <div class="animation animated slideInRight" data-animation="slideInRight" data-animation-delay="0.5s" style="animation-delay: 0.5s; opacity: 1;">
+                <img data-parallax="{&quot;y&quot;: 30, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape48.png" alt="شکل 48" style="transform:translate3d(0px, 7.747px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, 7.747px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+            </div>
+        </div>
+        <div class="ol_shape30">
+            <div class="animation animated slideInRight" data-animation="slideInRight" data-animation-delay="0.5s" style="animation-delay: 0.5s; opacity: 1;">
+                <img data-parallax="{&quot;y&quot;: 30, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape49.png" alt="شکل 49" style="transform:translate3d(0px, 7.747px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, 7.747px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+            </div>
+        </div>
+        <div class="ol_shape31">
+            <div class="animation animated slideInRight" data-animation="slideInRight" data-animation-delay="0.5s" style="animation-delay: 0.5s; opacity: 1;">
+                <img data-parallax="{&quot;y&quot;: 30, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape50.png" alt="شکل 50" style="transform:translate3d(0px, 7.747px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, 7.747px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+            </div>
+        </div>
+    </div>
+</section>
+

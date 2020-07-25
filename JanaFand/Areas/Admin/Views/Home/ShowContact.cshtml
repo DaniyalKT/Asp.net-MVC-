@@ -1,0 +1,70 @@
+﻿@model IEnumerable<DataLayer.Product_Comments>
+
+
+@if (Model.Any())
+{
+
+
+    <!-- /.panel-heading -->
+    <div class="panel-body " style="width:100%">
+        <ul class="chat" id="commantList">
+            @foreach (var item in Model.Where(c => c.PersonID == null))
+            {
+            <li class="right clearfix" id="commant_@(item.CommentID)">
+         
+                <div class="chat-body clearfix">
+                    <div class="header">
+                        <strong class="primary-font">@item.Name</strong>
+                        <small class="pull-left text-muted">
+
+                            <i class="fa fa-calendar fa-fw hide"></i> در تاریخ : @item.CreateDate.ToString("yyyy/MM/dd")
+
+                            <a class="btn btn-warning btn-xs" href="/ProductView/@item.ProductID">
+                                رفتن به محصول این نظر
+                            </a>
+                            <a class="text-danger" onclick="deleteCommant(@item.CommentID)">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+
+
+                        </small>
+                    </div>
+                    <p>
+                        @item.Comment
+                    </p>
+                </div>
+
+            </li> 
+
+            }
+
+
+
+        </ul>
+
+
+    </div>
+}
+
+
+<script>
+
+    function deleteCommant(id) {
+
+        $.confirm({
+            title: ' حذف نظر !',
+            content: 'آیا از حذف این نظر مطمئن هستید ؟',
+            buttons: {
+                بله: function () {
+                    $.get("/Admin/Home/DeleteCommant/" + id, function () {
+                        $("#commant_" + id).hide('slow');
+                    });
+                },
+                خیر: function () {
+
+                },
+            }
+        });
+    }
+
+</script>

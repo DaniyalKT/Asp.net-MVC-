@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "پنل مدیریت فروشگاه ";
+}
+
+<div class="col-lg-8">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i class="fa fa-gift fa-fw"></i> سفارش های جدید
+       
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        @Html.Action("Factor")
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+</div>
+
+
+<div class="col-lg-4">
+    <div class="chat-panel panel panel-default">
+        <div class="panel-heading">
+            <i class="fa fa-comments fa-fw"></i>
+            نظرات کاربران
+
+        </div>
+
+        @Html.Action("ShowContact")
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i class="fa fa-users fa-fw"></i> کاربران جدید
+        </div>
+        <!-- /.panel-heading -->
+        @Html.Action("ShowUserInDashbord")
+        <!-- /.panel-body -->
+    </div>
+</div>
+
+
+

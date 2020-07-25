@@ -1,0 +1,35 @@
+﻿@model IEnumerable<DataLayer.Product_Groups>
+
+
+
+<div class="container">
+<div class="row">
+<div class="col-12 animation" data-animation="fadeInUp" data-animation-delay="0.04s">
+    <div class="product_slider product_list carousel_slide3 owl-carousel owl-theme nav_top_right"
+         data-margin="30" data-dots="false" data-nav="true">
+
+
+        @foreach (var item in Model.Where(p => p.ParentID == null))
+        {
+            <div class="banner_box box_shadow4 radius_all_10">
+                <div > 
+                    <h3>@item.GroupTitle</h3>
+                    <p>برای مشاهده محصولات کلیک کنید</p>
+                    <em><a href="/Archive?selectedGroup=@item.GroupID" class="btn btn-white btn-radius btn-borderd btn-sm">مشاهده محصولات</a></em>
+                </div>
+                <div class="banner_img">
+                    <img src="~/Content/assets/images/shape8.png" style="max-width:150px; margin-right:30px" alt="@item.GroupTitle">
+                </div>
+            </div>
+        }
+        
+
+    </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

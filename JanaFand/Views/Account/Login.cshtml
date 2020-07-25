@@ -1,0 +1,102 @@
+﻿@model DataLayer.LoginViewModel
+
+@{
+    ViewBag.Title = "ورود به سایت";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    @if (User.Identity.IsAuthenticated && Request.QueryString["ReturnUrl"] != null)
+    {
+        <div class="alert alert-danger">
+
+            <p>متاسفانه شما مجوز ورود به این بخش را ندارید.</p>
+
+        </div>
+    }
+
+    @if(Request.QueryString["Recovery"] != null)
+    {
+        <div class="alert alert-success">
+
+            <p>گذرواژه شما با موفقیت تغییر یافت</p>
+
+        </div>
+    }
+
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2 " })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="g-recaptcha" data-sitekey="6LeDCcMUAAAAABdJf3L7kQJaxAycvyGuTp2_IhtS"></div>
+            <span class="text-danger">@ViewBag.Message</span>
+        </div>
+    </div>
+
+    <div class="form-group col-md-10 checkbox ">
+        @Html.LabelFor(model => model.RememmberMe, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.RememmberMe)
+        @Html.ValidationMessageFor(model => model.RememmberMe, "", new { @class = "text-danger" })
+
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <i>
+                <svg class="bi bi-lock-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="11" height="9" x="2.5" y="7" rx="2" />
+                    <path fill-rule="evenodd" d="M4.5 4a3.5 3.5 0 117 0v3h-1V4a2.5 2.5 0 00-5 0v3h-1V4z" clip-rule="evenodd" />
+                </svg>
+            </i>
+            <a href="/ForgotPassword">گذرواژه خود را فراموش کرده ام !</a>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+        
+            <p>
+                کاربر جدید هستید ؟   
+                <i>
+                    <svg class="bi bi-person-plus-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 100-6 3 3 0 000 6zm7.5-3a.5.5 0 01.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 010-1H13V5.5a.5.5 0 01.5-.5z" clip-rule="evenodd" />
+                        <path fill-rule="evenodd" d="M13 7.5a.5.5 0 01.5-.5h2a.5.5 0 010 1H14v1.5a.5.5 0 01-1 0v-2z" clip-rule="evenodd" />
+                    </svg>
+                </i>
+                <a href="/Register">عضویت در جانآفند</a>
+            </p>
+            
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="ورود به سایت" class="btn btn-primary btn-radius" />
+        </div>
+    </div>
+</div>
+}
+

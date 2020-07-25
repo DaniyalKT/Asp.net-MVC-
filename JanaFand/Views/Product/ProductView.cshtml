@@ -1,0 +1,219 @@
+﻿@model DataLayer.Products
+@using DataLayer
+
+
+
+@{
+    ViewBag.Title = "نمایش محصول";
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+
+}
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="product-image">
+            <img id="product_img" src="~/Images/ProductImages/@Model.ImageName" style="width:100%; height:380px" alt="@Model.ProductTitle" data-zoom-image="/Images/ProductImages/@Model.ImageName">
+            @if (Model.Product_Galleries.Any())
+            {
+
+                <div id="pr_item_gallery" class="product_gallery_item owl-thumbs-slider owl-carousel owl-theme owl-loaded owl-drag">
+                    @foreach (var item in Model.Product_Galleries)
+                    {
+                        <div class="owl-stage-outer">
+                            <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 407px;">
+                                <div class="owl-item active" style="width: 91.75px; margin-right: 10px;">
+                                    <div class="item">
+                                        <a href="#" class="active" data-image="/Images/ProductImages/@item.ImageName" data-zoom-image="/Images/ProductImages/@item.ImageName">
+                                            <img src="~/Images/ProductImages/@item.ImageName" style="width:100%; height:80px" alt="@item.Title">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>}
+                    <div class="owl-nav disabled"><div class="owl-prev disabled"><i class="ion-ios-arrow-forward"></i></div><div class="owl-next disabled"><i class="ion-ios-arrow-back"></i></div></div><div class="owl-dots disabled"></div>
+                </div>}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="pr_detail">
+            <div class="product-description">
+                <div class="product-title">
+                    <h4><a href="#">@Model.ProductTitle</a></h4>
+                </div>
+                <div class="product_price float-left">
+                    @if (Model.OldPrice != null)
+                    {
+                        <span style="text-decoration:line-through;font-weight: 600; font-size:14px" class="text-danger">@Model.OldPrice.Value.ToString("#,0") تومان</span>
+
+                    }
+                    <span class="price">@Model.Price.ToString("#,0") تومان</span>
+                </div>
+
+                <div class="clearfix"></div>
+                <hr>
+                <p>@Model.ShortDescription</p>
+            </div>
+            <hr>
+            <div class="cart_extra">
+                <div class="cart_btn">
+                    <button onclick="AddToCart(@Model.ProductID)" class="btn btn-default btn-radius btn-sm btn-addtocart" type="button">افزودن به سبد خرید</button>
+                    <a class="add_wishlist" href="#" onclick="AddToLikeProduct(@Model.ProductID)"><i class="ti-heart"> </i></a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <hr>
+
+            <div class="product_share d-block d-sm-flex align-items-center">
+
+                <span>به اشتراک گذاشتن با:</span>
+                <ul class="list_none social_icons  rounded_social">
+                    @Html.Action("SocialNetwork", "Home")
+
+                </ul>
+            </div>
+            <br />
+            <div class="widget">
+                @if (Model.Product_Tags.Any())
+                {
+                    <div class="tags">
+                        <h6 class="widget_title">برچسب ها :</h6>
+                        @foreach (var item in Model.Product_Tags.Where(t => t.ProductID == t.Products.ProductID))
+                        {
+                            <a href="/Search?q=@item.Tags">@item.Tags </a>
+
+                        }
+
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="medium_divider clearfix"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="tab-style1">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="Description-tab" data-toggle="tab" href="#Description" role="tab" aria-controls="Description" aria-selected="true">شرح</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="Additional-info-tab" data-toggle="tab" href="#Additional-info" role="tab" aria-controls="Additional-info" aria-selected="false">ویژگی محصول</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="Reviews-tab" data-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">نظرات (@Model.Product_Comments.Count())</a>
+                </li>
+            </ul>
+            <div class="tab-content shop_info_tab">
+                <div class="tab-pane fade show active" id="Description" role="tabpanel" aria-labelledby="Description-tab">
+                    <p>@Html.Raw(Model.Text)</p>
+                </div>
+                <div class="tab-pane fade" id="Additional-info" role="tabpanel" aria-labelledby="Additional-info-tab">
+                    @if (ViewBag.productFeatures != null)
+                    {
+                        List<ProductFeaturesViewModal> list = ViewBag.productFeatures;
+
+                        <table class="table table-bordered">
+                            <tbody>
+                                @foreach (var item in list)
+                                {
+                                    <tr>
+                                        <td>@item.FeatureTitle </td>
+                                        <td>@string.Join(" , ", item.Value)</td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    }
+
+                </div>
+
+                <div class="tab-pane fade" id="Reviews" role="tabpanel" aria-labelledby="Reviews-tab">
+
+
+                    <div class="comments" id="listComment">
+
+
+                        @Html.Action("ShowComments", "Product")
+                    </div>
+                    <br />
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="review_form field_form">
+                            <h5>نظرات ارزشمند خود را ثبت کنید </h5>
+
+                            <div class="alert alert-warning" id="alertComment">پاسخ خود را وارد کنید !</div>
+
+                            @Html.Action("CreateComment", "Product")
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="alert alert-success">
+                            جهت ثبت نظر باید در سایت <a href="/Register">عضو</a> شوید و یا وارد <a href="/Login">سایت</a>  شده باشید .
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="medium_divider clearfix"></div>
+    </div>
+</div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function successComment() {
+            $("#Comment").val("");
+            $("#PersonID").val("");
+        }
+
+        $(document).ready(function () {
+            $("#alertComment").hide();
+        });
+
+        function ReplyComment(id) {
+            $("#PersonID").val(id);
+            $("#alertComment").show('fast');
+            $("html, body").animate({ scrollTop: $('#alertComment').offset().top }, 1000);
+        }
+
+        $("#HideReplyComment").click(function () {
+            $("#alertComment").hide('fast');
+
+        });
+
+        function deleteComment(id) {
+            $.confirm({
+                title: 'حذف نظر!',
+                content: 'آیا از حذف نظر خود مطمئن هستید ؟',
+                buttons: {
+                    بله: function () {
+                        btnClass = "btn-red"
+                        $.get("/Product/DeleteComment/" + id, function () {
+                            $("#comment_" + id).hide('slow');
+
+                        });
+                    },
+                    خیر: function () {
+
+                    },
+                }
+            });
+        }
+
+    </script>

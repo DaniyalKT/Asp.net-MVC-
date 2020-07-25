@@ -1,0 +1,452 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JanaFandModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Features">
+    <Key>
+      <PropertyRef Name="FeatureID" />
+    </Key>
+    <Property Name="FeatureID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FeatureTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Product_Features" Relationship="Self.FK_Product_Features_Features" FromRole="Features" ToRole="Product_Features" />
+  </EntityType>
+  <EntityType Name="Product_Features">
+    <Key>
+      <PropertyRef Name="PG_ID" />
+    </Key>
+    <Property Name="PG_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="FeatureID" Type="Int32" Nullable="false" />
+    <Property Name="Value" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Features" Relationship="Self.FK_Product_Features_Features" FromRole="Product_Features" ToRole="Features" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Product_Features_Products" FromRole="Product_Features" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Product_Galleries">
+    <Key>
+      <PropertyRef Name="GalleryID" />
+    </Key>
+    <Property Name="GalleryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Product_Galleries_Products" FromRole="Product_Galleries" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Product_Groups">
+    <Key>
+      <PropertyRef Name="GroupID" />
+    </Key>
+    <Property Name="GroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GroupTitle" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ParentID" Type="Int32" />
+    <NavigationProperty Name="Product_Groups1" Relationship="Self.FK_Product_Groups_Product_Groups" FromRole="Product_Groups" ToRole="Product_Groups1" />
+    <NavigationProperty Name="Product_Groups2" Relationship="Self.FK_Product_Groups_Product_Groups" FromRole="Product_Groups1" ToRole="Product_Groups" />
+    <NavigationProperty Name="Product_Selected_Groups" Relationship="Self.FK_Product_Selected_Groups_Product_Groups" FromRole="Product_Groups" ToRole="Product_Selected_Groups" />
+  </EntityType>
+  <EntityType Name="Product_Selected_Groups">
+    <Key>
+      <PropertyRef Name="PG_ID" />
+    </Key>
+    <Property Name="PG_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="GroupID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Product_Groups" Relationship="Self.FK_Product_Selected_Groups_Product_Groups" FromRole="Product_Selected_Groups" ToRole="Product_Groups" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Product_Selected_Groups_Products" FromRole="Product_Selected_Groups" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Product_Tags">
+    <Key>
+      <PropertyRef Name="TagID" />
+    </Key>
+    <Property Name="TagID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Tags" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Product_Tags_Products" FromRole="Product_Tags" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductTitle" Type="String" MaxLength="350" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ShortDescription" Type="String" MaxLength="350" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="ImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Product_Features" Relationship="Self.FK_Product_Features_Products" FromRole="Products" ToRole="Product_Features" />
+    <NavigationProperty Name="Product_Galleries" Relationship="Self.FK_Product_Galleries_Products" FromRole="Products" ToRole="Product_Galleries" />
+    <NavigationProperty Name="Product_Selected_Groups" Relationship="Self.FK_Product_Selected_Groups_Products" FromRole="Products" ToRole="Product_Selected_Groups" />
+    <NavigationProperty Name="Product_Tags" Relationship="Self.FK_Product_Tags_Products" FromRole="Products" ToRole="Product_Tags" />
+    <NavigationProperty Name="Product_Comments" Relationship="JanaFandModel.FK_Product_Comments_Products" FromRole="Products" ToRole="Product_Comments" />
+    <Property Name="OldPrice" Type="Int32" />
+    <NavigationProperty Name="FactorDetails" Relationship="JanaFandModel.FK_FactorDetails_Products" FromRole="Products" ToRole="FactorDetails" />
+  </EntityType>
+  <Association Name="FK_Product_Features_Features">
+    <End Role="Features" Type="Self.Features" Multiplicity="1" />
+    <End Role="Product_Features" Type="Self.Product_Features" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Features">
+        <PropertyRef Name="FeatureID" />
+      </Principal>
+      <Dependent Role="Product_Features">
+        <PropertyRef Name="FeatureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Features_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Product_Features" Type="Self.Product_Features" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Product_Features">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Galleries_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Product_Galleries" Type="Self.Product_Galleries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Product_Galleries">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Groups_Product_Groups">
+    <End Role="Product_Groups" Type="Self.Product_Groups" Multiplicity="0..1" />
+    <End Role="Product_Groups1" Type="Self.Product_Groups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product_Groups">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="Product_Groups1">
+        <PropertyRef Name="ParentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Selected_Groups_Product_Groups">
+    <End Role="Product_Groups" Type="Self.Product_Groups" Multiplicity="1" />
+    <End Role="Product_Selected_Groups" Type="Self.Product_Selected_Groups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product_Groups">
+        <PropertyRef Name="GroupID" />
+      </Principal>
+      <Dependent Role="Product_Selected_Groups">
+        <PropertyRef Name="GroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Selected_Groups_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Product_Selected_Groups" Type="Self.Product_Selected_Groups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Product_Selected_Groups">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Tags_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Product_Tags" Type="Self.Product_Tags" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Product_Tags">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="JanaFandEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Features" EntityType="Self.Features" />
+    <EntitySet Name="Product_Features" EntityType="Self.Product_Features" />
+    <EntitySet Name="Product_Galleries" EntityType="Self.Product_Galleries" />
+    <EntitySet Name="Product_Groups" EntityType="Self.Product_Groups" />
+    <EntitySet Name="Product_Selected_Groups" EntityType="Self.Product_Selected_Groups" />
+    <EntitySet Name="Product_Tags" EntityType="Self.Product_Tags" />
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <AssociationSet Name="FK_Product_Features_Features" Association="Self.FK_Product_Features_Features">
+      <End Role="Features" EntitySet="Features" />
+      <End Role="Product_Features" EntitySet="Product_Features" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Features_Products" Association="Self.FK_Product_Features_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Product_Features" EntitySet="Product_Features" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Galleries_Products" Association="Self.FK_Product_Galleries_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Product_Galleries" EntitySet="Product_Galleries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Groups_Product_Groups" Association="Self.FK_Product_Groups_Product_Groups">
+      <End Role="Product_Groups" EntitySet="Product_Groups" />
+      <End Role="Product_Groups1" EntitySet="Product_Groups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Selected_Groups_Product_Groups" Association="Self.FK_Product_Selected_Groups_Product_Groups">
+      <End Role="Product_Groups" EntitySet="Product_Groups" />
+      <End Role="Product_Selected_Groups" EntitySet="Product_Selected_Groups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Selected_Groups_Products" Association="Self.FK_Product_Selected_Groups_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Product_Selected_Groups" EntitySet="Product_Selected_Groups" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Tags_Products" Association="Self.FK_Product_Tags_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Product_Tags" EntitySet="Product_Tags" />
+    </AssociationSet>
+    <EntitySet Name="Product_Comments" EntityType="JanaFandModel.Product_Comments" />
+    <AssociationSet Name="FK_Product_Comments_Products" Association="JanaFandModel.FK_Product_Comments_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Product_Comments" EntitySet="Product_Comments" />
+    </AssociationSet>
+    <EntitySet Name="FactorDetails" EntityType="JanaFandModel.FactorDetails" />
+    <EntitySet Name="Factors" EntityType="JanaFandModel.Factors" />
+    <AssociationSet Name="FK_FactorDetails_Factors" Association="JanaFandModel.FK_FactorDetails_Factors">
+      <End Role="Factors" EntitySet="Factors" />
+      <End Role="FactorDetails" EntitySet="FactorDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FactorDetails_Products" Association="JanaFandModel.FK_FactorDetails_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="FactorDetails" EntitySet="FactorDetails" />
+    </AssociationSet>
+    <EntitySet Name="Slider" EntityType="JanaFandModel.Slider" />
+    <EntitySet Name="Slider_Galleries" EntityType="JanaFandModel.Slider_Galleries" />
+    <AssociationSet Name="FK_Slider_Galleries_Slider" Association="JanaFandModel.FK_Slider_Galleries_Slider">
+      <End Role="Slider" EntitySet="Slider" />
+      <End Role="Slider_Galleries" EntitySet="Slider_Galleries" />
+    </AssociationSet>
+    <EntitySet Name="AboutUs" EntityType="JanaFandModel.AboutUs" />
+    <EntitySet Name="Companies" EntityType="JanaFandModel.Companies" />
+    <EntitySet Name="OurChoice" EntityType="JanaFandModel.OurChoice" />
+    <EntitySet Name="ContactUs" EntityType="JanaFandModel.ContactUs" />
+    <EntitySet Name="ContactCommant" EntityType="JanaFandModel.ContactCommant" />
+    <EntitySet Name="SocialNetwork" EntityType="JanaFandModel.SocialNetwork" />
+    <EntitySet Name="Users" EntityType="JanaFandModel.Users" />
+    <AssociationSet Name="FK_Factors_Users" Association="JanaFandModel.FK_Factors_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Factors" EntitySet="Factors" />
+    </AssociationSet>
+    <EntitySet Name="Roles" EntityType="JanaFandModel.Roles" />
+    <AssociationSet Name="FK_Users_Roles" Association="JanaFandModel.FK_Users_Roles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Product_Comments">
+    <Key>
+      <PropertyRef Name="CommentID" />
+    </Key>
+    <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Comment" Type="String" Nullable="false" MaxLength="800" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="JanaFandModel.FK_Product_Comments_Products" FromRole="Product_Comments" ToRole="Products" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PersonID" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_Product_Comments_Products">
+    <End Type="JanaFandModel.Products" Role="Products" Multiplicity="1" />
+    <End Type="JanaFandModel.Product_Comments" Role="Product_Comments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Product_Comments">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="FactorDetails">
+    <Key>
+      <PropertyRef Name="DetailID" />
+    </Key>
+    <Property Name="DetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FactorID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Factors" Relationship="JanaFandModel.FK_FactorDetails_Factors" FromRole="FactorDetails" ToRole="Factors" />
+    <NavigationProperty Name="Products" Relationship="JanaFandModel.FK_FactorDetails_Products" FromRole="FactorDetails" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Factors">
+    <Key>
+      <PropertyRef Name="FactorID" />
+    </Key>
+    <Property Name="FactorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsFinally" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="FactorDetails" Relationship="JanaFandModel.FK_FactorDetails_Factors" FromRole="Factors" ToRole="FactorDetails" />
+    <NavigationProperty Name="Users" Relationship="JanaFandModel.FK_Factors_Users" FromRole="Factors" ToRole="Users" />
+  </EntityType>
+  <Association Name="FK_FactorDetails_Factors">
+    <End Type="JanaFandModel.Factors" Role="Factors" Multiplicity="1" />
+    <End Type="JanaFandModel.FactorDetails" Role="FactorDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factors">
+        <PropertyRef Name="FactorID" />
+      </Principal>
+      <Dependent Role="FactorDetails">
+        <PropertyRef Name="FactorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FactorDetails_Products">
+    <End Type="JanaFandModel.Products" Role="Products" Multiplicity="1" />
+    <End Type="JanaFandModel.FactorDetails" Role="FactorDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="FactorDetails">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Slider">
+    <Key>
+      <PropertyRef Name="SliderID" />
+    </Key>
+    <Property Name="SliderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ImageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="SratrDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Slider_Galleries" Relationship="JanaFandModel.FK_Slider_Galleries_Slider" FromRole="Slider" ToRole="Slider_Galleries" />
+    <Property Name="ShortDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Slider_Galleries">
+    <Key>
+      <PropertyRef Name="GalleryID" />
+    </Key>
+    <Property Name="GalleryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SliderID" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ImageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Slider" Relationship="JanaFandModel.FK_Slider_Galleries_Slider" FromRole="Slider_Galleries" ToRole="Slider" />
+  </EntityType>
+  <Association Name="FK_Slider_Galleries_Slider">
+    <End Type="JanaFandModel.Slider" Role="Slider" Multiplicity="1" />
+    <End Type="JanaFandModel.Slider_Galleries" Role="Slider_Galleries" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Slider">
+        <PropertyRef Name="SliderID" />
+      </Principal>
+      <Dependent Role="Slider_Galleries">
+        <PropertyRef Name="SliderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AboutUs">
+    <Key>
+      <PropertyRef Name="AboutID" />
+    </Key>
+    <Property Name="AboutID" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Companies">
+    <Key>
+      <PropertyRef Name="CompanyID" />
+    </Key>
+    <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ImageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="OurChoice">
+    <Key>
+      <PropertyRef Name="ChoiceID" />
+    </Key>
+    <Property Name="ChoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ShortDescription" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ImageName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ContactUs">
+    <Key>
+      <PropertyRef Name="ContactID" />
+    </Key>
+    <Property Name="ContactID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShortDescription" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ContactCommant">
+    <Key>
+      <PropertyRef Name="CommantID" />
+    </Key>
+    <Property Name="CommantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Massage" Type="String" Nullable="false" MaxLength="800" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="SocialNetwork">
+    <Key>
+      <PropertyRef Name="NetwordID" />
+    </Key>
+    <Property Name="NetwordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Logo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Url" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PostalCode" Type="Int32" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="ActiveCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="RegisterDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Factors" Relationship="JanaFandModel.FK_Factors_Users" FromRole="Users" ToRole="Factors" />
+    <NavigationProperty Name="Roles" Relationship="JanaFandModel.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+  </EntityType>
+  <Association Name="FK_Factors_Users">
+    <End Type="JanaFandModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="JanaFandModel.Factors" Role="Factors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Factors">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="RoleTitle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Users" Relationship="JanaFandModel.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+  </EntityType>
+  <Association Name="FK_Users_Roles">
+    <End Type="JanaFandModel.Roles" Role="Roles" Multiplicity="1" />
+    <End Type="JanaFandModel.Users" Role="Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

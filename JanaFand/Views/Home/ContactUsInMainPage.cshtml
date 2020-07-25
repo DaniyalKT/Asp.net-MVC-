@@ -1,0 +1,31 @@
+﻿@model IEnumerable<DataLayer.ContactUs>
+
+
+<!--لوگوی سایت فوتر-->
+<div class="footer_logo">
+    <a href="index.html"><img alt="تماس با ما" src="/Content/assets/images/logo_dark.png"></a>
+</div>
+<!--لوگوی سایت فوتر-->
+
+@foreach (var item in Model)
+{
+    <div class="footer_desc">
+        <p> @item.ShortDescription </p>
+    </div>
+    <ul class="contact_info list_none">
+        <li>
+            <span class="ti-mobile"></span>
+            <p>@item.PhoneNumber</p>
+        </li>
+        <li>
+            <span class="ti-email"></span>
+            <a href="@item.Email">@item.Email</a>
+        </li>
+        <li>
+            <span class="ti-location-pin"></span>
+            <address>@item.Address</address>
+        </li>
+    </ul>
+
+}
+

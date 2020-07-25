@@ -1,0 +1,105 @@
+﻿@model IEnumerable<DataLayer.ShowOrderViewModel>
+
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                @if(Request.QueryString["Payment"] != null)
+                {
+                    <div class="alert alert-danger">
+                        لطفا حساب کاربری خود را تکمیل نمائید؟
+                    </div>
+                }
+                <div class="table-responsive shop_cart_table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="product-thumbnail">&nbsp;</th>
+                                <th class="product-name">محصول</th>
+                                <th class="product-price">قیمت واحد</th>
+                                <th class="product-quantity">تعداد</th>
+                                <th class="product-subtotal">جمع کل</th>
+                                <th class="product-remove">حذف</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="product-thumbnail"><a href="/ProductView/@item.ProductID"><img style="max-width:450px" src="~/Images/ProductImages/Thumb/@item.ImageName" alt="@item.Title"></a></td>
+                                    <td class="product-name" data-title="Product"><a href="/ProductView/@item.ProductID">@item.Title</a></td>
+                                    <td class="product-price" data-title="Price">@item.Price.ToString("#,0") تومان</td>
+                                    <td class="product-quantity" data-title="Quantity">
+
+                                        @*<input type="button" value="-"  class="minus" >*@
+                                        <input type="number" name="quantity" value="@item.Count" step="1" min="1" class="quantity" style="width:50PX" onchange="CommandFactor(@item.ProductID,$(this).val())">
+                                        @*<input type="button" value="+" class="plus">*@
+
+                                    </td>
+                                    <td class="product-subtotal" data-title="Total">@item.Sum.ToString("#,0") تومان</td>
+
+                                    <td class="product-remove" data-title="Remove"><a href="#" onclick="CommandFactor(@item.ProductID,0)"><i class="ti-close"></i></a></td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="small_divider clearfix"></div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="heading_s2">
+                        <h5>فاکتور خرید</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="cart_total_label">کل سبد خرید</td>
+                                    <td class="cart_total_amount">@Model.Sum(f => f.Sum).ToString("#,0") تومان</td>
+                                </tr>
+                                <tr>
+                                    <td class="cart_total_label">حمل و نقل </td>
+                                    <td class="cart_total_amount">رایگان</td>
+                                </tr>
+                                <tr class="text-success">
+                                    <td class="cart_total_label">جمع کل</td>
+                                    <td class="cart_total_amount"><strong>@Model.Sum(f => f.Sum).ToString("#,0")  تومان</strong></td>
+
+                                </tr>
+
+
+                            </tbody>
+
+
+
+
+
+                        </table>
+                        <div>
+                            <a href="/ShopCart/Payment" class="btn btn-default btn-sm " style="width: 70%; margin-right:60px">تایید و پرداخت</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+

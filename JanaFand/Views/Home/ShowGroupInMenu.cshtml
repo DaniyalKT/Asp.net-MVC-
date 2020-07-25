@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DataLayer.Product_Groups>
+@using DataLayer;
+
+<li class="dropdown">
+    <a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">محصولات</a>
+    <div class="dropdown-menu">
+        @{
+            List<Product_Groups> groups = ViewBag.Groups;
+            <ul>
+                @foreach (var group in groups.Where(g => g.ParentID == null))
+                {
+
+
+                    <li>
+                        <a class="dropdown-item nav-link nav_item dropdown-toggler" href="#">@group.GroupTitle</a>
+                        <div class="dropdown-menu">
+                            <ul>
+                                @if (groups.Any(g => g.ParentID == group.GroupID))
+                                {
+                                    foreach (var subGroup in groups.Where(g => g.ParentID == group.GroupID))
+                                    {
+                                        <li>
+                                            <a class="dropdown-item nav-link nav_item"
+                                               href="/Archive?selectedGroup=@subGroup.GroupID">@subGroup.GroupTitle</a>
+                                        </li>
+                                    }
+
+                                }
+
+
+
+
+                            </ul>
+                        </div>
+                    </li>
+                }
+            </ul>
+
+        }
+
+
+
+    </div>
+</li>

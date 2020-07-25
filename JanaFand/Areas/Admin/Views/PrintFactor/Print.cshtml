@@ -1,0 +1,15 @@
+﻿@using Stimulsoft.Report.Mvc
+@{
+    ViewBag.Title = "پرینت فاکتور";
+}
+
+
+@Html.Stimulsoft().StiMvcViewer(new StiMvcViewerOptions()
+{
+    Theme = StiTheme.Office2003,
+    ActionGetReportSnapshot = "report",
+    ActionViewerEvent = "viewerEvent"
+
+
+
+})

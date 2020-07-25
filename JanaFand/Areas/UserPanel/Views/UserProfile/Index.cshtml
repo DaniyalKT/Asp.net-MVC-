@@ -1,0 +1,92 @@
+﻿@model IEnumerable<DataLayer.Users>
+
+@{
+    ViewBag.Title = "حساب کاربری ";
+    ViewBag.AccountName = "حساب کاربری";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+@if (Model.Any(u => u.UserName == User.Identity.Name))
+{
+    foreach (var item in Model.Where(u=>u.UserName == User.Identity.Name))
+    {
+        <table class="table">
+
+            <tr>
+                <td><b>نام کاربری :</b></td>
+
+                <td>@item.UserName</td>
+
+
+
+            </tr>
+            <tr>
+                <td><b>ایمیل :</b></td>
+
+                <td>@item.Email</td>
+
+
+
+            </tr>
+
+            <tr>
+                <td><b>تلفن همراه :</b></td>
+
+                <td>@item.PhoneNumber</td>
+
+
+
+            </tr>
+            <tr>
+                <td><b>کدپستی :</b></td>
+
+                <td>@item.PostalCode</td>
+
+
+
+            </tr>
+            <tr>
+                <td><b>آدرس :</b></td>
+
+                <td>@item.Address</td>
+
+
+
+            </tr>
+            <tr>
+                <td><b>تاریخ ثبت نام :</b></td>
+
+                <td>@item.RegisterDate.ToString("dd/MMMM/yyyy")</td>
+
+
+
+            </tr>
+
+
+
+
+        </table>
+
+        <tfoot>
+            <tr>
+                <td colspan="6" class="px-0">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-lg-4 col-md-6 mb-3 mb-md-0">
+                            <div class="coupon field_form input-group">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-6 text-left text-md-right">
+                            <a href="/UserPanel/Account/ChangePassword/@item.UserID" class="btn btn-dark btn-sm">
+                                <i class="fa fa-lock"></i>
+                                تغییر گذرواژه
+                            </a>
+                            <a href="/UserPanel/UserProfile/Edit/@item.UserID" class="btn btn-default btn-sm">تکمیل حساب کاربری</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+
+
+    }
+}

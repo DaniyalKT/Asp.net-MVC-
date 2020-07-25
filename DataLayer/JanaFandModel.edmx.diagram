@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d8193991ac3744f3b3890b2e259406f7" Name="Diagram1" ZoomLevel="91">
+        <EntityTypeShape EntityType="JanaFandModel.Features" Width="1.5" PointX="9" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JanaFandModel.Product_Features" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JanaFandModel.Product_Galleries" Width="1.5" PointX="0.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JanaFandModel.Product_Groups" Width="1.5" PointX="2.625" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JanaFandModel.Product_Selected_Groups" Width="1.5" PointX="0.5" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JanaFandModel.Product_Tags" Width="1.5" PointX="4" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JanaFandModel.Products" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <AssociationConnector Association="JanaFandModel.FK_Product_Features_Features" ManuallyRouted="false" />
+        <AssociationConnector Association="JanaFandModel.FK_Product_Features_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="JanaFandModel.FK_Product_Galleries_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="JanaFandModel.FK_Product_Groups_Product_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="JanaFandModel.FK_Product_Selected_Groups_Product_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="JanaFandModel.FK_Product_Selected_Groups_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="JanaFandModel.FK_Product_Tags_Products" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="JanaFandModel.Product_Comments" Width="1.5" PointX="3" PointY="7.25" />
+        <AssociationConnector Association="JanaFandModel.FK_Product_Comments_Products" />
+        <EntityTypeShape EntityType="JanaFandModel.FactorDetails" Width="1.5" PointX="12.875" PointY="6" />
+        <EntityTypeShape EntityType="JanaFandModel.Factors" Width="1.5" PointX="13.25" PointY="1.375" />
+        <AssociationConnector Association="JanaFandModel.FK_FactorDetails_Factors" />
+        <AssociationConnector Association="JanaFandModel.FK_FactorDetails_Products" />
+        <EntityTypeShape EntityType="JanaFandModel.Slider" Width="1.5" PointX="5.625" PointY="1.375" />
+        <EntityTypeShape EntityType="JanaFandModel.Slider_Galleries" Width="1.5" PointX="8" PointY="4.5" />
+        <AssociationConnector Association="JanaFandModel.FK_Slider_Galleries_Slider" />
+        <EntityTypeShape EntityType="JanaFandModel.AboutUs" Width="1.5" PointX="11.125" PointY="9.25" />
+        <EntityTypeShape EntityType="JanaFandModel.Companies" Width="1.5" PointX="12.125" PointY="11.75" />
+        <EntityTypeShape EntityType="JanaFandModel.OurChoice" Width="1.5" PointX="8.375" PointY="7.75" />
+        <EntityTypeShape EntityType="JanaFandModel.ContactUs" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="JanaFandModel.ContactCommant" Width="1.5" PointX="6.375" PointY="13.75" />
+        <EntityTypeShape EntityType="JanaFandModel.SocialNetwork" Width="1.5" PointX="9.25" PointY="14" />
+        <EntityTypeShape EntityType="JanaFandModel.Users" Width="1.5" PointX="11" PointY="0.75" />
+        <AssociationConnector Association="JanaFandModel.FK_Factors_Users" />
+        <EntityTypeShape EntityType="JanaFandModel.Roles" Width="1.5" PointX="9.25" PointY="2.5" />
+        <AssociationConnector Association="JanaFandModel.FK_Users_Roles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

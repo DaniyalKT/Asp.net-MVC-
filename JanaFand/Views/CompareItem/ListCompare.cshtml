@@ -1,0 +1,48 @@
+﻿@model IEnumerable<DataLayer.CompareItem>
+
+@if (Model.Any())
+{
+<div class="widget">
+    <h5 class="widget_title">لیست مقایسه</h5>
+
+    <ul class="list_none">
+        @foreach (var item in Model)
+        {
+
+            <li>
+
+                <div class="post_content">
+
+                    <i class="product-remove" data-title="Remove"><a href="#" onclick="DeleteFromCompare(@item.ProductID)"><i class="ti-close"></i></a></i>
+                    &nbsp;&nbsp;
+                    <a href="/ProductView/@item.ProductID">@item.Title</a>
+                    <br />
+
+                </div>
+            </li>
+        }
+
+
+    </ul>  
+    <br />
+    <div class="add-to-cart"><a href="/CompareItem" class="btn btn-default btn-sm" style="width:100%"> مشاهده لیست مقایسه </a></div>
+</div>
+}
+
+<script>
+    function AddToCompare(id) {
+        $.get("/CompareItem/AddToCompare/" + id, function (res) {
+
+            $("#Compare").html(res);
+
+        });
+    }
+
+    function DeleteFromCompare(id) {
+        $.get("/CompareItem/DeleteFromCompare/" + id, function (res) {
+
+            $("#Compare").html(res);
+
+        });
+    }
+</script>

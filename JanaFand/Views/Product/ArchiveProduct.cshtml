@@ -1,0 +1,111 @@
+﻿@model IEnumerable<DataLayer.Products>
+
+@{
+    ViewBag.Title = "لیست محصولات فروشگاه ";
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+}
+
+
+@section OrderProduct{
+    @Html.Action("OrderProduct", "Product")
+
+}
+
+
+
+
+@section FilterProduct{
+
+    <!--FilterProductFromGroup-->
+    <div class=" widget ">
+        <h5 class="widget_title">فیلتر بر اساس دسته بندی </h5>
+        <form action="/Archive" id="filterForm">
+            <input type="hidden"value="@ViewBag.pageId" name="pageId" id="pageId"/>
+
+            @{
+                List<DataLayer.Product_Groups> list = ViewBag.GroupsFilter;
+                List<int> select = ViewBag.selected ?? new List<int>();
+            }
+
+            @foreach (var group in list.Where(g => g.ParentID == null))
+            {
+                <ul>
+                    <li>
+                        <input type="checkbox" name="selectedGroup" @((select.Any(s => s == group.GroupID)) ? "checked" : "") value="@group.GroupID" />
+                        <span>@group.GroupTitle</span>
+
+                        @foreach (var subGroup in list.Where(g => g.ParentID == group.GroupID))
+                        {
+                            <ul style="margin-right:20px">
+                                <li>
+                                    <input type="checkbox" name="selectedGroup" @((select.Any(s => s == subGroup.GroupID)) ? "checked" : "") value="@subGroup.GroupID" />
+                                    <span>@subGroup.GroupTitle</span>
+                                </li>
+                            </ul>
+                        }
+
+                    </li>
+                </ul>
+            }
+            <br />
+            <div class="widget">
+                <h5 class="widget_title">فیلتر بر اساس قیمت محصول</h5>
+
+                <div class="filter_price">
+                    <div id="price_filter" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"><div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 15%; "></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 15%;"></span><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left:75%;"></span></div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <span>قیمت: <span id="flt_price"></span></span>
+                        <input type="hidden" id="price_first" value="@ViewBag.price_first" name="price_first">
+                        <input type="hidden" id="price_second" value="@ViewBag.price_second" name="price_second">
+
+
+                    </div>
+               
+                        <button type="submit" style="width:100%" class="btn btn-default btn-sm">فیلتر</button>
+               
+
+                      
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+
+}
+
+
+
+<div class="row shop_container list_view">
+    @foreach (var item in Model)
+    {
+        @Html.Partial("_Product", item)
+    }
+</div>
+
+
+<div class="row">
+    @if (ViewBag.pageCount > 0)
+    {
+        <div class="col-12 mt-3 mt-lg-4">
+            <ul class="pagination justify-content-center">
+                @for (int i = 1; i <= (ViewBag.pageCount+1); i++)
+                {
+                    <li class="@(((int)ViewBag.pageId==i)?"active":"") page-item"><a class="page-link"  onclick="changePage(@i)" href="#">@i</a></li>
+                }
+            </ul>
+        </div>
+    }
+
+</div>
+
+
+<script>
+    function changePage(pageId) {
+        $("#pageId").val(pageId);
+        $("#filterForm").submit();
+    }
+</script>

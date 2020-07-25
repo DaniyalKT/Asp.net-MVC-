@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DataLayer.Products>
+
+
+<div class="col-12 animation" data-animation="fadeInUp" data-animation-delay="0.04s">
+    <div class="product_slider product_list carousel_slide3 owl-carousel owl-theme nav_top_right"
+         data-margin="30" data-dots="false" data-nav="true">
+
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="items">
+
+                    <div class="product" style="height:120px">
+                        <div class="product_img">
+                            <a href="#"><img src="~/Images/ProductImages/Thumb/@item.ImageName" style="height:100px" alt="@item.ProductTitle"></a>
+                            <div class="product_action_box">
+                                <ul class="list_none pr_action_btn">
+                                    <li><a onclick="AddToCart(@item.ProductID)"><i class="ti-shopping-cart"></i></a></li>
+                             
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product_info">
+                            <h6><a href="#">@item.ProductTitle</a></h6>
+                            <span class="price">@item.Price.ToString("#,0") تومان</span>
+                            @if (item.OldPrice != null)
+                            {
+                                <span style="text-decoration:line-through; font-weight: 600; font-size:14px" class="text-danger">@item.OldPrice.Value.ToString("#,0") تومان</span>
+
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            }
+        }
+
+
+
+    </div>
+</div>
+<script src="~/Content/assets/js/ShopCartJS.js"></script>

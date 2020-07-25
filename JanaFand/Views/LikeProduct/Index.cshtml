@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DataLayer.LikeProductList>
+@{
+    ViewBag.Title = "لیست علاقه مندی ها";
+    ViewBag.AccountName = "لیست علاقه مندی ها";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="small_pt small_pb" id="LikeProduct">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="medium_divider clearfix"></div>
+                <div class="table-responsive shop_cart_table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="product-thumbnail">&nbsp;</th>
+                                <th class="product-name">تولید - محصول</th>
+                                <th class="product-price">قیمت</th>
+                                <th class="product-add-to-cart"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="product-thumbnail"><a href="/ProductView/@item.ProductID"><img src="~/Images/ProductImages/Thumb/@item.ImageName" style="width:100px; height:100px" alt="@item.Title"></a></td>
+                                    <td class="product-name" data-title="Product"><a href="/ProductView/@item.ProductID">@item.Title</a></td>
+                                    <td class="product-price" data-title="Price">@item.Price.ToString("#,0") تومان</td>
+                                    <td class="product-add-to-cart"><a href="#" onclick="AddToCart(@item.ProductID)" class="btn btn-default btn-sm">افزودن به سبد خرید</a></td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+          
+                    </table>
+                </div>
+                <div class="medium_divider clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

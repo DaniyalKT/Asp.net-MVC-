@@ -1,0 +1,112 @@
+﻿@model IEnumerable<DataLayer.Products>
+
+@{
+    ViewBag.Title = "فروشگاه اینترنتی جانآفند ";
+}
+
+@section Slider{
+    @Html.Action("Slider")
+}
+
+
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-6 col-lg-8 col-sm-10 text-center">
+            <div class="heading_s1 text-center animation animated fadeInUp" data-animation="fadeInUp" data-animation-delay="0.02s" style="animation-delay: 0.02s; opacity: 1;">
+                <h2>محصولات فروشگاه</h2>
+            </div>
+            <p class="animation animated fadeInUp" data-animation="fadeInUp" data-animation-delay="0.03s" style="animation-delay: 0.03s; opacity: 1;">
+                با فروشگاه جانآفند بهترین خرید را داشته باشید
+            </p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="product_content">
+                @*<form action="/Index">
+                        <ul class="nav nav-tabs justify-content-center animation animated fadeInUp" data-animation="fadeInUp" data-animation-delay="0.04s" role="tablist" style="animation-delay: 0.04s; opacity: 1;">
+                            @{
+                                List<DataLayer.Product_Groups> groups = ViewBag.Groups;
+                            }
+                            @if (groups.Any())
+                            {
+                                foreach (var item in groups.Where(p => p.ParentID == null))
+                                {
+                                    <li class="nav-item">
+                                        <img src="~/Content/assets/images/icon2.png" class="text-success" style="width:50px; height:50px" />
+                                        <a class="nav-link" id="tab2" data-toggle="tab"  role="tab" aria-controls="tab-2" aria-selected="false">@item.GroupTitle
+                                        <input type="checkbox" name="selectedGroup" value="@item.GroupID" />
+                                        </a>
+                                    </li>
+                                }
+
+
+                            }
+
+                        </ul>
+                    </form>*@
+
+                <div class="small_divider clearfix"></div>
+                <div class="tab-content">
+                    <form id="filterPage">
+                        <input name="PageId" type="hidden" value="@ViewBag.PageId" id="PageId" />
+                        <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="tab1">
+                            <div class="row animation animated fadeInUp" data-animation="fadeInUp" data-animation-delay="0.05s" style="animation-delay: 0.05s; opacity: 1;">
+                                @foreach (var item in Model)
+                                {
+                                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                                        <div class="product" style="height:280px">
+                                            <div class="product_img">
+                                                <a href="#"><img src="~/Images/ProductImages/@item.ImageName" style="width:250px; height:150px" alt="@item.ProductTitle"></a>
+                                                <div class="product_action_box">
+                                                    <ul class="list_none pr_action_btn">
+
+                                                        <li><a onclick="AddToCart(@item.ProductID)"><i class="ti-shopping-cart"></i></a></li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="product_info">
+                                                <h6><a href="/ProductView/@item.ProductID">@item.ProductTitle</a></h6>
+                                                <span class="price">
+                                                    @item.Price.ToString("#,0")  تومان &nbsp;
+                                                    @if (item.OldPrice != null)
+                                                    {
+                                                        <span style="text-decoration:line-through; font-weight: 600; font-size:14px" class="text-danger">@item.OldPrice.Value.ToString("#,0") تومان</span>
+
+                                                    }
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @if (ViewBag.pageCount > 0)
+    {
+        <div class="col-12 mt-3 mt-lg-4">
+            <ul class="pagination justify-content-center">
+                @for (int i = 1; i <= (ViewBag.pageCount + 1); i++)
+                {
+                    <li class="@(((int)ViewBag.pageId == i) ? "active" : "") page-item"><a class="page-link" href="/Home/Index?pageId=@i">@i</a></li>
+                }
+            </ul>
+        </div>
+
+    }
+    </div>
+<br />

@@ -1,0 +1,11 @@
+﻿@model IEnumerable<DataLayer.Product_Groups>
+
+
+<ul class="list_none widget_links">
+    @foreach (var item in Model.Where(p => p.ParentID == null))
+    {
+        <li><a href="/Archive?selectedGroup=@item.GroupID">@item.GroupTitle</a></li>
+
+    }
+
+</ul>

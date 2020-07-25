@@ -1,0 +1,104 @@
+﻿
+@model IEnumerable<DataLayer.Products>
+
+@{
+    ViewBag.Title = "لیست محصولات";
+}
+
+<p>
+    <a href="@Url.Action("Create")" class=" btn btn-primary btn-lg">  محصول جدید</a>
+</p>
+<br />
+
+<div class="col-md-2">
+    <form action="/Admin/Search/SearchProduct">
+        <div class="input-group custom-search-form">
+            <input type="text" class="form-control" name="P" placeholder="جستوجوی محصول...">
+            <span class="input-group-btn">
+                <a class="btn btn-default">
+                    <i class="fa fa-search"></i>
+                </a>
+            </span>
+        </div>
+    </form>
+</div>
+
+<p>تعداد @Model.Count() محصول یافت شد</p>
+<br /><br />
+<br />
+
+<table class="table table-bordered table-striped table-condensed">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OldPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr id="product_@(item.ProductID)" style="height:150px">
+            <td>
+                <img src="~/Images/ProductImages/Thumb/@item.ImageName" class="thumbnail" style="max-width:200px; height:200px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OldPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+
+            <td>
+                @item.CreateDate.ToString("dddd, dd MMMM yyyy")
+            </td>
+            <td>
+                <a class="btn btn-success btn-sm" href="@Url.Action("ProductFeature", "Products" , new {id = item.ProductID })">ویژگی های محصول</a>
+                <a class="btn btn-info btn-sm" href="@Url.Action("Gallery", "Products" , new {id = item.ProductID })">گالری محصول</a>
+                <a class="btn btn-warning btn-sm" href="@Url.Action("Edit", "Products" , new {id = item.ProductID })">ویرایش محصول</a>
+                <a class="btn btn-danger btn-sm" onclick="deleteProduct(@item.ProductID)">حذف محصول</a>
+
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+
+<script>
+
+    function deleteProduct(id) {
+
+        $.confirm({
+            title: 'حذف محصول!',
+            content: 'آیا از حذف این محصول مطمئن هستید ؟',
+            buttons: {
+                بله: function () {
+                    $.get("/Admin/Products/Delete/" + id, function () {
+                        $("#product_" + id).hide('slow');
+                    });
+                },
+                خیر: function () {
+
+                },
+            }
+        });
+    }
+
+</script>

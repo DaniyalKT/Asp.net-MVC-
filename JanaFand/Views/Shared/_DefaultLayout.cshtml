@@ -1,0 +1,386 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="Anil z" name="author">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="فروشگاه جانافند">
+    <!-- SITE TITLE -->
+    <title>@ViewBag.Title</title>
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/Content/assets/images/favicon.png">
+    <!-- Animation CSS -->
+    <link rel="stylesheet" href="/Content/assets/css/animate.css">
+    <!-- Latest Bootstrap min CSS -->
+    <link rel="stylesheet" href="/Content/assets/bootstrap/css/bootstrap.min.css">
+    <!-- Google Font -->
+    <link href="../../../external.html?link=https://fonts.googleapis.com/css?family=Lobster+Two:400,700"
+          rel="stylesheet">
+    <link href="../../../external.html?link=https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900"
+          rel="stylesheet">
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="/Content/assets/css/ionicons.min.css">
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="/Content/assets/css/all.min.css">
+    <!-- Themify Font CSS -->
+    <link rel="stylesheet" href="/Content/assets/css/themify-icons.css">
+    <!--- owl carousel CSS-->
+    <link rel="stylesheet" href="/Content/assets/owlcarousel/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/Content/assets/owlcarousel/css/owl.theme.css">
+    <link rel="stylesheet" href="/Content/assets/owlcarousel/css/owl.theme.default.min.css">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="/Content/assets/css/magnific-popup.css">
+    <!-- jquery-ui CSS -->
+    <link rel="stylesheet" href="/Content/assets/css/jquery-ui.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="/Content/assets/css/style.css">
+    <link rel="stylesheet" href="/Content/assets/css/responsive.css">
+    <link rel="stylesheet" id="layoutstyle" href="/Content/assets/color/theme-default.css">
+    <script>
+        var sc_project = 11981757;
+        var sc_invisible = 1;
+        var sc_security = "35d2687e";
+        var sc_https = 1;
+    </script>
+    <script src="../../../www.statcounter.com/counter/counter.js" async></script>
+</head>
+<body>
+    <!-- LOADER -->
+    <div id="preloader">
+        <div class="line-scale">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+    <!-- END LOADER -->
+    <!-- START HEADER -->
+    <header class="header_wrap dark_skin main_menu_uppercase">
+        <div class="top-header bg_gray">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-7">
+                        @Html.Partial("_LoggedInUser")
+                    </div>
+                    <div class="col-md-5">
+                        <ul class="header_list border_list list_none header_dropdown text-center text-md-right">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">پروفایل کاربری</a>
+                                    <div class="dropdown-menu shadow dropdown-menu-right">
+                                        <ul>
+                                            <li><a class="dropdown-item" href="/UserPanel/UserProfile">ورود به ناحیه کاربری</a></li>
+                                            <li><a class="dropdown-item" href="/UserPanel/Account/ChangePassword">تغییر گذرواژه</a></li>
+                                            @if (User.IsInRole("Admin"))
+                                            {
+                                                <li><a class="dropdown-item" href="/Admin">ورود به پنل مدیریت</a></li>
+
+                                            }
+                                            <li><a class="dropdown-item" href="/Account/LogOff">خروج از سایت</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="index.html">
+                    <img class="logo_light" src="/Content/assets/images/logo_white.png" alt="آرم">
+                    <img class="logo_dark" src="/Content/assets/images/logo_dark.png" alt="آرم">
+                    <img class="logo_default" src="/Content/assets/images/logo_dark.png" alt="آرم">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="ناوبری را تغییر دهید">
+                    <span class="ion-android-menu"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="dropdown">
+                            <a class="nav-link " href="/">صفحه اصلی</a>
+
+                        </li>
+
+
+                        <li>
+                            <a class="nav-link" href="/Archive">آرشیو محصولات</a>
+                        </li>
+                        @Html.Action("ShowGroupInMenu", "Home", new { area = "" })
+
+
+                        <li>
+                            <a class="nav-link" href="@Url.Action("Index" , "AboutUs")">درباره ما</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="/ContactUs">تماس با ما</a>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="navbar-nav attr-nav align-items-center">
+                    <li>
+                        <a href="javascript:void(0);" class="nav-link search_trigger"><i class="ion-ios-search-strong"></i></a>
+                        <div class="search-overlay">
+                            <div class="search_wrap">
+                                <form action="/Search">
+                                    <div class="rounded_input">
+                                        <input type="text" placeholder="جستجو" name="q" class="form-control" id="search_input">
+                                    </div>
+                                    <button type="submit" class="search_icon"><i class="fas fa-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown cart_wrap">
+                        <a class="nav-link" href="/ShopCart"><i class="ion-bag"></i><span class="cart_count" id="countShopCart"></span></a>
+
+
+
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- END HEADER -->
+    <!-- START SECTION BANNER -->
+    @RenderSection("Slider", false)
+    <!-- END SECTION BANNER -->
+    <!-- START SECTION BANNER BOX -->
+    <section>
+        @Html.Action("Groups")
+
+    </section>
+
+    <!-- END SECTION BANNER BOX -->
+    <!-- START SECTION WHY CHOOSE US -->
+    <section class="small_pt">
+        @Html.Action("OurChoice")
+    </section>
+    <!-- END SECTION WHY CHOOSE US -->
+    <!-- START SECTION PRODUCT -->
+    @RenderBody()
+
+    <!-- START SECTION PRODUCT -->
+    <!-- START SECTION TESTIMONIAL -->
+    <section class="bg_gray">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-lg-8">
+                    <div class="text-center animation" data-animation="fadeInUp" data-animation-delay="0.02s">
+                        <div class="heading_s1 text-center">
+                            <h2>مشتری ما می گویند!</h2>
+                        </div>
+                        <p class="animation" data-animation="fadeInUp" data-animation-delay="0.03s">
+                            نظرات مشتری های عزیز ما در رابطه با محصولات و فروشگاه اینترنتی  جانآفند
+                        </p>
+                    </div>
+                    <div class="small_divider"></div>
+                </div>
+            </div>
+            <div class="row justify-content-center ltr">
+                @Html.Action("ShowCommentsInMainPage", "Home")
+            </div>
+        </div>
+        <div class="overlap_shape">
+            <div class="ol_shape17">
+                <div class="animation" data-animation="fadeInLeft" data-animation-delay="0.5s">
+                    <img data-parallax="{&quot;y&quot;: 20, &quot;smoothness&quot;: 20}"
+                         src="/Content/assets/images/testimonial_bg_img1.jpg" alt="Testonial_bg_img1">
+                </div>
+            </div>
+            <div class="ol_shape18">
+                <div class="animation float-left" data-animation="fadeInRight" data-animation-delay="0.5s">
+                    <img data-parallax="{&quot;y&quot;: 20, &quot;smoothness&quot;: 20}"
+                         src="/Content/assets/images/testimonial_bg_img2.png" alt="Testonial_bg_img2">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION TESTIMONIAL -->
+    <!-- START SECTION CLIENT LOGO -->
+    <section class="small_pt">
+        @Html.Action("Companies")
+    </section>
+    <!-- END SECTION CLIENT LOGO -->
+    <!-- END SECTION NEWSLATTER -->
+    <section class="bg_light_green newslatter_wrap">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 text-center">
+                    <h1>لوگوی سایت</h1>
+                </div>
+            </div>
+        </div>
+        <div class="overlap_shape">
+            <div class="ol_shape19">
+                <div class="animation" data-animation="fadeInLeft" data-animation-delay="0.5s">
+                    <img data-parallax="{&quot;y&quot;: 20, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape34.png"
+                         alt="شکل34">
+                </div>
+            </div>
+            <div class="ol_shape20">
+                <div class="animation" data-animation="fadeInRight" data-animation-delay="0.5s">
+                    <img data-parallax="{&quot;y&quot;: 20, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape35.png"
+                         alt="شکل35">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION NEWSLATTER -->
+    <!-- START FOOTER -->
+    <footer class="bg_gray">
+        <div class="top_footer small_pt small_pb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+                        @Html.Action("ContactUsInMainPage", "Home", new { area = "" })
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4">
+                        <h5 class="widget_title">اطلاعات</h5>
+                        <ul class="list_none widget_links">
+                            <li><a href="/Archive">آرشیو محصولات</a></li>
+                            <li><a href="/ContactUs">تماس با ما</a></li>
+                            <li><a href="/AbountUs">درباره ما</a></li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li><a href="/UserPanel/UserProfile">ورود به ناحیه حساب کاربری</a></li>
+                                <li><a href="/UserPanel/Account/ChangePassword">تغییر گذرواژه</a></li>
+                            }
+
+
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4">
+                        <h5 class="widget_title">گروه محصولات</h5>
+               @Html.Action("ShowGroupInFoorer", "Home")
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="middle_footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="shopping_info">
+                            <div class="row justify-content-center">
+                                <div class="col-md-4">
+                                    <div class="icon_box icon_box_style2">
+                                        <div class="box_icon">
+                                            <i class="fas fa-truck"></i>
+                                        </div>
+                                        <div class="intro_desc">
+                                            <h5>تحویل رایگان</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="icon_box icon_box_style2">
+                                        <div class="box_icon">
+                                            <i class="fas fa-dollar-sign"></i>
+                                        </div>
+                                        <div class="intro_desc">
+                                            <h5>30 روز ضمانت بازگشت</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="icon_box icon_box_style2">
+                                        <div class="box_icon">
+                                            <i class="far fa-life-ring"></i>
+                                        </div>
+                                        <div class="intro_desc">
+                                            <h5>27/4 پشتیبانی آنلاین</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlap_shape">
+            <div class="ol_shape21">
+                <div class="animation">
+                    <img data-parallax="{&quot;y&quot;: 20, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape36.png"
+                         alt="شکل 36">
+                </div>
+            </div>
+            <div class="ol_shape22">
+                <div class="animation">
+                    <img data-parallax="{&quot;y&quot;: 20, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape37.png"
+                         alt="شکل 37">
+                </div>
+            </div>
+            <div class="ol_shape23">
+                <div class="animation">
+                    <img data-parallax="{&quot;y&quot;: 20, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape38.png"
+                         alt="شکل 38">
+                </div>
+            </div>
+            <div class="ol_shape24">
+                <div class="animation">
+                    <img data-parallax="{&quot;y&quot;: 20, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape39.png"
+                         alt="شکل 39">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- END FOOTER -->
+    <a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
+    <!-- Latest jQuery -->
+    <script src="/Content/assets/js/jquery-1.12.4.min.js"></script>
+    <!-- jquery-ui -->
+    <script src="/Content/assets/js/jquery-ui.js"></script>
+    <!-- popper min js -->
+    <script src="/Content/assets/js/popper.min.js"></script>
+    <!-- Latest compiled and minified Bootstrap -->
+    <script src="/Content/assets/bootstrap/js/bootstrap.min.js"></script>
+    <!-- owl-carousel min js  -->
+    <script src="/Content/assets/owlcarousel/js/owl.carousel.min.js"></script>
+    <!-- magnific-popup min js  -->
+    <script src="/Content/assets/js/magnific-popup.min.js"></script>
+    <!-- waypoints min js  -->
+    <script src="/Content/assets/js/waypoints.min.js"></script>
+    <!-- parallax js  -->
+    <script src="/Content/assets/js/parallax.js"></script>
+    <!-- jquery dd js  -->
+    <script src="/Content/assets/js/jquery.dd.min.js"></script>
+    <!-- countdown js  -->
+    <script src="/Content/assets/js/jquery.countdown.min.js"></script>
+    <!-- jquery.counterup.min js -->
+    <script src="/Content/assets/js/jquery.counterup.min.js"></script>
+    <!-- jquery.parallax-scroll js -->
+    <script src="/Content/assets/js/jquery.parallax-scroll.js"></script>
+    <!-- elevatezoom js -->
+    <script src="/Content/assets/js/jquery.elevatezoom.js"></script>
+    <!-- fit video  -->
+    <script src="/Content/assets/js/jquery.fitvids.js"></script>
+    <!-- imagesloaded js -->
+    <script src="/Content/assets/js/imagesloaded.pkgd.min.js"></script>
+    <!-- isotope min js -->
+    <script src="/Content/assets/js/isotope.min.js"></script>
+    <!-- cookie js -->
+    <script src="/Content/assets/js/js.cookie.js"></script>
+    <!-- scripts js -->
+    <script src="~/Content/assets/js/ShopCartJS.js"></script>
+    <script src="/Content/assets/js/scripts.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+</body>
+</html>

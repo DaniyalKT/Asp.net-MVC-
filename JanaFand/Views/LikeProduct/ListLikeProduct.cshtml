@@ -1,0 +1,49 @@
+﻿
+@model IEnumerable<DataLayer.LikeProductList>
+
+@if (Model.Any())
+{
+    <div class="widget">
+        <h5 class="widget_title">لیست علاقه مندی ها</h5>
+
+        <ul class="list_none">
+            @foreach (var item in Model)
+            {
+
+                <li>
+
+                    <div class="post_content">
+
+                        <i class="product-remove" data-title="Remove"><a href="#" onclick="DeleteFromLikeProduct(@item.ProductID)"><i class="ti-close"></i></a></i>
+                        &nbsp;&nbsp;
+                        <a href="/ProductView/@item.ProductID">@item.Title</a>
+                        <br />
+
+                    </div>
+                </li>
+            }
+
+
+        </ul>
+        <br />
+        <div class="add-to-cart"><a href="/LikeProduct" class="btn btn-default btn-sm" style="width:100%"> مشاهده لیست علاقه مندی ها </a></div>
+    </div>
+}
+
+<script>
+    function AddToLikeProduct(id) {
+        $.get("/LikeProduct/AddProductInList/" + id, function (res) {
+
+            $("#LikeProduct").html(res);
+
+        });
+    }
+
+    function DeleteFromLikeProduct(id) {
+        $.get("/LikeProduct/DeleteFromLikeProduct/" + id, function (res) {
+
+            $("#LikeProduct").html(res);
+
+        });
+    }
+</script>

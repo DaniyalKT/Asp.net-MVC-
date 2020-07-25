@@ -1,0 +1,23 @@
+﻿@model IEnumerable<DataLayer.Products>
+@{
+    ViewBag.Title = "جستجوی محصولات ";
+
+    Layout = "~/Views/Shared/_ProductLayout.cshtml";
+}
+
+@section OrderProduct{
+    @Html.Action("OrderProduct", "Product")
+}
+
+<div class="row shop_container list_view">
+    @foreach (var item in Model)
+    {
+        @Html.Partial("_Product", item)
+    }
+</div>
+
+
+
+
+
+

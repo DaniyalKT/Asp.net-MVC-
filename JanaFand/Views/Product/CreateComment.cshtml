@@ -1,0 +1,31 @@
+﻿
+@model DataLayer.Product_Comments
+
+@using (Ajax.BeginForm("CreateComment", "Product", FormMethod.Post, new AjaxOptions()
+{
+    OnSuccess = "successComment",
+    UpdateTargetId = "listComment",
+
+}))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ProductID)
+    @Html.HiddenFor(m => m.PersonID)
+    @Html.HiddenFor(m => m.Name)
+
+    <form class="row mt-3">
+
+        <div class="form-group col-12">
+            @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", placeholder = "لطفا متن نظر خود را وارد کنید*", rows = "4" })
+            @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="form-group col-md-6">
+            <input type="submit" value="ارسال نظر" class="btn btn-success btn-radius" id="HideReplyComment" />
+        </div>
+
+    </form>
+
+
+}

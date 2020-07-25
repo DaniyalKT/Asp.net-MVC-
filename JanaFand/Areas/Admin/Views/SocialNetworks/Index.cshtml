@@ -1,0 +1,72 @@
+﻿@model IEnumerable<DataLayer.SocialNetwork>
+
+@{
+    ViewBag.Title = "شبکه اجتماعی ما";
+}
+
+
+<p>
+    <a class="btn btn-primary btn-lg" href="/Admin/SocialNetworks/Create">
+        <i class="glyphicon glyphicon-plus"></i> افزودن
+    </a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Logo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Url)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr id="network_@(item.NetwordID)">
+        <td>
+            <img src="~/Images/SocialNetworkLogo/@item.Logo" style="width:50px; height:50px" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Url)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            <a href="/Admin/SocialNetworks/Edit/@item.NetwordID" class="btn btn-warning btn-sm">
+                <i class="glyphicon glyphicon-edit"></i>
+            </a>
+
+            <a  onclick="deleteNetwork(@item.NetwordID)" class="btn btn-danger btn-sm">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>
+
+<script>
+
+    function deleteNetwork(id) {
+
+        $.confirm({
+            title: 'حذف !',
+            content: 'آیا از حذف مطمئن هستید ؟',
+            buttons: {
+                بله: function () {
+                    $.get("/Admin/SocialNetworks/Delete/" + id, function () {
+                        $("#network_" + id).hide('slow');
+                    });
+                },
+                خیر: function () {
+                     
+                },
+            }
+        });
+    }
+
+</script>

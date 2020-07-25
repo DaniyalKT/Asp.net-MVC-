@@ -1,0 +1,98 @@
+﻿@model IEnumerable<DataLayer.FactorDetails>
+
+
+@Html.ActionLink("Print", "Print", "PrintFactor")
+
+<table class="table table-bordered table-hover table-striped">
+    <thead>
+        <tr>
+            <th>شماره فاکتور</th>
+            <th>محصول</th>
+
+            <th>قیمت</th>
+            <th>نام مشتری</th>
+            <th>آدرس مشتری</th>
+            <th>تلفن همراه مشتری</th>
+            <th>زمان سفارش</th>
+            <th>وضعیت پرداخت</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="factor_@(item.FactorID)">
+                <td>@item.FactorID</td>
+                <td>
+                    <ul>
+                        @{
+                            List<DataLayer.FactorDetails> list = ViewBag.factorDetail;
+                        }
+
+                        @foreach (var factor in list)
+                        {
+                            <li>
+                                @factor.Products.ProductTitle
+                            </li>
+
+                        }
+
+                    </ul>
+                </td>
+
+                <td>@Model.Sum(p => p.Price).ToString("#,0")</td>
+                <td>@item.Factors.Users.UserName</td>
+                <td>@item.Factors.Users.Address</td>
+                <td>@item.Factors.Users.PhoneNumber</td>
+                <td>@item.Factors.Date.ToShamsi()</td>
+                <td>
+                    @if (item.Factors.IsFinally == true)
+                    {
+                        <div class="label label-success">پرداخت موفق</div>
+                    }
+                    else
+                    {
+                        <div class="label label-danger">پرداخت ناموفق</div>
+
+                    }
+                </td>
+                <td>
+                    <a class="text-danger btn-sm" onclick="deleteFactor(@item.FactorID)">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+                    <a class=" btn-sm" href="/Admin/PrintFactor/Print">
+                        <i class="glyphicon glyphicon-print"></i>
+                    </a>  
+                </td>
+
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+<script>
+
+    function deleteFactor(id) {
+
+
+        $.confirm({
+            title: 'حذف فاکتور!',
+            content: 'آیا از حذف این فاکتور مطمئن هستید ؟',
+            buttons: {
+                بله: function () {
+                    $.get("/Admin/Home/DeleteFactor/" + id, function () {
+                        $("#factor_" + id).hide('slow');
+                    });
+                },
+                خیر: function () {
+
+                },
+            }
+        });
+
+
+    }
+</script>

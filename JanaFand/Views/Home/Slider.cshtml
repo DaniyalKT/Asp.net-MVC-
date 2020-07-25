@@ -1,0 +1,67 @@
+﻿@model IEnumerable<DataLayer.Slider>
+
+<section class="banner_slider banner_slide_half p-0">
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner">
+          
+            <div class="carousel-item bg_light_pink active">
+                @foreach (var item in Model)
+                {
+                    <div class="banner_slide_content slide_content_wrap">
+                        <div class="container-fluid">
+                            <div class="row align-items-center">
+                                <div class="col-md-6 col-sm-7">
+                                    <div class="banner_content3 pl-lg-5 animation animated fadeIn" data-animation="fadeIn" data-animation-delay="0.4s" data-parallax="{&quot;y&quot;: 30, &quot;smoothness&quot;: 10}" style="transform:translate3d(0px, 2.429px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, 2.429px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+                                        <h2 class="animation font_style1 animated fadeInDown" data-animation="fadeInDown" data-animation-delay="0.5s" style="animation-delay: 0.5s; opacity: 1;">@item.Title</h2>
+                                        <p class="animation animated fadeInUp" data-animation="fadeInUp" data-animation-delay="0.6s" style="animation-delay: 0.6s; opacity: 1;">
+                                            @item.ShortDescription
+                                        </p>
+                                        <a class="btn btn-default animation animated fadeInUp" href="@item.Url" data-animation="fadeInUp" data-animation-delay="0.7s" style="animation-delay: 0.7s; opacity: 1;">اطلاعات بیشتر </a>
+                                      
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-5">
+                                    <div class="banner_slider_img animation animated bounceInUp" data-animation="bounceInUp" data-animation-delay="0.4s" style="animation-delay: 0.4s; opacity: 1;">
+                                        <img class="bounceimg" src="~/Images/Sliders/@item.ImageName" alt="@item.Title">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="banner_shape">
+                        <div class="shape22">
+                            <div class="animation animated slideInLeft" data-animation="slideInLeft" data-animation-delay="0.5s" style="animation-delay: 0.5s; opacity: 1;">
+                                <img data-parallax="{&quot;y&quot;: -30, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape51.png" alt="شکل51" style="transform:translate3d(0px, -2.409px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, -2.409px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+                            </div>
+                        </div>
+                        <div class="shape23">
+                            <div class="animation animated slideInDown" data-animation="slideInDown" data-animation-delay="0.5s" style="animation-delay: 0.5s; opacity: 1;">
+                                <img data-parallax="{&quot;y&quot;: 30, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape52.png" alt="شکل52" style="transform:translate3d(0px, 2.429px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, 2.429px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+                            </div>
+                        </div>
+                        <div class="shape24">
+                            <div class="animation animated bounceInDown" data-animation="bounceInDown" data-animation-delay="0.5s" style="animation-delay: 0.5s; opacity: 1;">
+                                <img data-parallax="{&quot;y&quot;: 30, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape53.png" alt="شکل53" style="transform:translate3d(0px, 2.429px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, 2.429px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+                            </div>
+                        </div>
+                        <div class="shape25">
+                            <div class="animation animated slideInRight" data-animation="slideInRight" data-animation-delay="0.5s" style="animation-delay: 0.5s; opacity: 1;">
+                                <img data-parallax="{&quot;y&quot;: 30, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape54.png" alt="شکل54" style="transform:translate3d(0px, 2.429px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, 2.429px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+                            </div>
+                        </div>
+                        <div class="shape26">
+                            <div class="animation animated bounceInUp" data-animation="bounceInUp" data-animation-delay="0.5s" style="animation-delay: 0.5s; opacity: 1;">
+                                <img data-parallax="{&quot;y&quot;: 30, &quot;smoothness&quot;: 20}" src="/Content/assets/images/shape55.png" alt="شکل 55" style="transform:translate3d(0px, 0.207px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); -webkit-transform:translate3d(0px, 0.207px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scaleX(1) scaleY(1) scaleZ(1); ">
+                            </div>
+                        </div>
+                    </div>}
+            </div>
+           
+
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev"><i class="ion-chevron-right"></i></a>
+        <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next"><i class="ion-chevron-left"></i></a>
+    </div>
+</section>
+
+

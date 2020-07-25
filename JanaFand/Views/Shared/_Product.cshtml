@@ -1,0 +1,42 @@
+﻿@model DataLayer.Products
+
+<div class="col-lg-4 col-sm-6">
+    <div class="product">
+
+        <div class="product_img">
+            <a href="#"><img src="~/Images/ProductImages/@Model.ImageName"  style="height:220px" alt="@Model.ProductTitle" ></a>
+            <div class="product_action_box">
+                <ul class="list_none pr_action_btn">
+                    <li><a href="#"><i class="ti-heart"></i></a></li>
+                    <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
+                    <li><a class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="ti-eye"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="product_info">
+            <h6><a href="/ProductView/@Model.ProductID">@Model.ProductTitle</a></h6>
+            @if (Model.OldPrice != null)
+            {
+                <span style="text-decoration:line-through; font-weight: 600; font-size:14px" class="text-danger">@Model.OldPrice.Value.ToString("#,0") تومان</span>
+
+            }
+            <span class="price">@Model.Price.ToString("#,0") تومان</span>
+
+            <div class="pr_desc">
+                <p>@Model.ShortDescription</p>
+            </div>
+            <div class="product_action_box">
+                <ul class="list_none pr_action_btn">
+                    <li class="add-to-cart"><a href="#"  onclick="AddToCart(@Model.ProductID)"><i class="ti-shopping-cart"></i> افزودن به سبد خرید</a></li>
+                    <li><a href="#" onclick="AddToLikeProduct(@Model.ProductID)"><i class="ti-heart"></i></a></li>
+                    <li><a onclick="AddToCompare(@Model.ProductID)" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="ti-eye"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+</div> 
+
+

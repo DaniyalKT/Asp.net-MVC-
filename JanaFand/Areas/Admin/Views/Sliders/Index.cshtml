@@ -1,0 +1,86 @@
+﻿@model IEnumerable<DataLayer.Slider>
+
+@{
+    ViewBag.Title = "افزودن اسلایدر";
+    Layout = "~/Areas/Admin/Views/Shared/_DeafultAdmin.cshtml";
+}
+
+
+<p>
+    <a href="/Admin/Sliders/Create" class="btn btn-primary btn-lg ">افزودن اسلایدر جدید</a>
+</p>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Url)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SratrDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            <img src="~/Images/Sliders/@item.ImageName" style="max-width:200px" class="img-thumbnail" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Url)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SratrDate)
+        </td>
+        <td>
+            @if (item.IsActive == false)
+            {
+                <div class="label label-danger" style="height:100px">
+                    اسلایدر غیر فعال است
+                </div>
+            }
+            else
+            {
+                <div class="label label-success " style="height:50px">
+                    اسلایدر فعال است
+                </div>
+            }
+        </td>
+        <td>
+            <a href="/Admin/Sliders/SlidersGallery/@item.SliderID" class="btn btn-info btn-sm">
+              گالری 
+            </a>
+
+            <a href="/Admin/Sliders/Edit/@item.SliderID" class="btn btn-warning btn-sm">
+                <i class="glyphicon glyphicon-edit"></i>
+            </a>
+
+            <a href="/Admin/Sliders/Delete/@item.SliderID" class="btn btn-danger btn-sm">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a>
+        </td>
+    </tr>
+    }
+
+</table>

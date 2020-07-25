@@ -1,0 +1,22 @@
+﻿@model DataLayer.Product_Comments
+
+@using (Ajax.BeginForm("CreateCommantInDashboord", "Home", FormMethod.Post, new AjaxOptions {
+
+        OnSuccess = "successCommant",
+        UpdateTargetId="commantList"
+}))
+{
+    @Html.AntiForgeryToken()
+    Html.HiddenFor(model => model.ProductID);
+    Html.HiddenFor(model => model.PersonID);
+
+<span class="input-group-btn " >
+    
+    @Html.TextAreaFor(model =>model.Comment, new { @class="form-control", placeholder="لطفا پاسخ خود را وارد کنید...", style = "width: 450px" })
+    @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+
+     <input type="submit" class="btn btn-primary" value="ارسال" />
+</span>
+}
+
+

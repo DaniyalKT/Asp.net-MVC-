@@ -1,0 +1,71 @@
+﻿@model IEnumerable<DataLayer.CompareItem>
+@{
+    ViewBag.Title = "لیست مقایسه";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+@if (Model.Any())
+{
+<table class="table table-striped">
+    <tr>
+        <td>تصویر :</td>
+        @foreach (var item in Model)
+        {
+            <td>
+                <img src="~/Images/ProductImages/Thumb/@item.ImageName" class="img-thumbnail" style="width:100px; height:100px" />
+            </td>
+        }
+
+
+    </tr>
+    <tr>
+        <td>محصول :</td>
+
+        @foreach (var item in Model)
+        {
+            <td>
+                @item.Title
+            </td>
+        }
+
+    </tr>
+    <tr>
+        <td>قیمت :</td>
+
+        @foreach (var item in Model)
+        {
+            <td class="text-success">
+                @item.Price.ToString("#,0")
+            </td>
+        }
+
+    </tr>
+    @{
+        List<DataLayer.Features> featuresList = ViewBag.featurs as List<DataLayer.Features>;
+        List<DataLayer.Product_Features> productFeaturs = ViewBag.productFeatur as List<DataLayer.Product_Features>;
+    }
+    @foreach (var item in featuresList)
+    {
+        <tr>
+            <td>
+                @item.FeatureTitle :
+            </td>
+
+            @foreach (var feature in Model)
+            {
+                <td>
+
+                    @string.Join("-", productFeaturs.Where(f => f.ProductID == feature.ProductID && f.FeatureID == item.FeatureID).Select(f => f.Value).ToList())
+
+
+                </td>
+            }
+
+        </tr>
+    }
+
+</table>
+}
+
+
+

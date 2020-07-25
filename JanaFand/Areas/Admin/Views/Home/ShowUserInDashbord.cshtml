@@ -1,0 +1,20 @@
+﻿@model IEnumerable<DataLayer.Users>
+
+
+<div class="panel-body">
+    <div class="list-group">
+        @foreach(var item in Model.Where(u => u.IsActive))
+        {
+        <a href="#" class="list-group-item">
+            <i></i> @item.UserName
+            <span class="pull-left text-muted small">
+                <em>@item.RegisterDate.ToString("dd MMMM yyyy")</em>
+            </span>
+        </a>
+        }
+        
+
+    </div>
+    <!-- /.list-group -->
+    <a href="/Admin/Users/Index" class="btn btn-default btn-block">لیست کاربران</a>
+</div>

@@ -1,0 +1,42 @@
+﻿
+.div {
+    display: inline-block;
+}
+
+    .div input[type=text] {
+        width: 250px;
+        margin-right: 30px;
+    }
+
+    .div input[type=number] {
+        width: 250px;
+        margin-right: 30px;
+    }
+    .div button {
+        width: 150px;
+        margin-right:40px;
+    }
+
+    .div input[type= checkbox] {
+        margin-right: 10px;
+
+    }
+
+    .div span {
+        margin-right: 30px;
+    }
+
+#dLabel {
+    height: 35px;
+    width: 250px;
+    margin-right: 30px;
+}
+
+.inputCheckbox{
+    display:inline-block;
+}
+
+.div ul {
+    width: 250px;
+    margin-right: 30px;
+}

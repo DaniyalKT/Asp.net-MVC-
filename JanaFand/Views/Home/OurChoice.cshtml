@@ -1,0 +1,35 @@
+﻿@model IEnumerable<DataLayer.OurChoice>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <div class="heading_s3 text-center animation animated fadeInDown" data-animation="fadeInDown" data-animation-delay="0.02s" style="animation-delay: 0.02s; opacity: 1;">
+                <span class="sub_heading">به ویژگی های ما مراجعه کنید</span>
+                <h2>چرا ما را انتخاب کنید</h2>
+            </div>
+            <p class="animation animated fadeInUp" data-animation="fadeInUp" data-animation-delay="0.03s" style="animation-delay: 0.03s; opacity: 1;">
+                             <!--Text-->
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        @foreach(var item in Model)
+        {
+        <div class="col-xl-3 col-md-6">
+            <div  style="height:350px" class="icon_box icon_box_style3 box_shadow5 bg-white radius_all_10 animation animated fadeInUp" data-animation="fadeInUp" data-animation-delay="0.04s" style="animation-delay: 0.04s; opacity: 1;">
+                <div class="box_icon">
+                    <img src="~/Images/LogoChoice/@item.ImageName" alt="@item.Title">
+                </div>
+                <div class="intro_desc">
+                    <h6>@item.Title</h6>
+                    <p>
+                 @item.ShortDescription
+                    </p>
+                </div>
+            </div>
+        </div>
+        }
+        
+ 
+    </div>
+</div>

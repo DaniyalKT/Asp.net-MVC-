@@ -1,0 +1,81 @@
+﻿@model IEnumerable<DataLayer.ContactUs>
+
+@{
+    ViewBag.Title = "تماس با ما";
+}
+
+
+<p>
+    <a href="/Admin/ContactUs/Create" class="btn btn-primary">
+        <i class="glyphicon glyphicon-plus"></i>افزودن 
+    </a>
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShortDescription)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr id="contact_@(item.ContactID)">
+
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShortDescription)
+        </td>
+        <td>
+            <a class="btn btn-warning btn-xs" href="/Admin/ContactUs/Edit/@item.ContactID">
+                <i class="glyphicon glyphicon-edit"></i>
+            </a>
+
+            <a class="btn btn-danger btn-xs" onclick="deleteContact(@item.ContactID)">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<script>
+
+    function deleteContact(id) {
+
+        $.confirm({
+            title: 'حذف !',
+            content: 'آیا از حذف مطمئن هستید ؟',
+            buttons: {
+                بله: function () {
+                    $.get("/Admin/ContactUs/Delete/" + id, function () {
+                        $("#contact_" + id).hide('slow');
+                    });
+                },
+                خیر: function () {
+
+                },
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,11 @@
+﻿
+@model IEnumerable<DataLayer.SocialNetwork>
+
+
+
+@foreach (var item in Model)
+{
+    <li><a href="@item.Url"><img src="~/Images/SocialNetworkLogo/@item.Logo" style="width:40px; height:35px" alt="@item.Title" /></a></li>
+ 
+}
+

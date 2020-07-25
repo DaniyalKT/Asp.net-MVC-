@@ -1,0 +1,12 @@
+﻿@model DataLayer.Users
+@{
+    ViewBag.Title = "ثبت نام در سایت";
+    ViewBag.AccountName = "ثبت نام";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="alert alert-success">
+    <h4>@Model.UserName عزیز با تشکر از ثبت نام شما در سایت ما ! </h4>
+    <p>ایمیلی حاوی لینک فعالسازی به این ایمیل @Model.Email ارسال شد ، لطفا وارد ایمیل فوق شوید و روی لینک فعالسازی کلیک کنید. </p>
+</div>
+

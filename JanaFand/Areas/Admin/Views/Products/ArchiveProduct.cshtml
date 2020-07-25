@@ -1,0 +1,91 @@
+﻿@model IEnumerable<DataLayer.Products>
+
+@{
+    ViewBag.Title = "آرشیو محصولات";
+}
+
+@section ProductFilter{
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><p>جستجوی پیشرفته محصولات</p></div>
+        <div class="panel-body">
+            <form class="filter" action="/Admin/Search/ArchiveProduct">
+                <div class="div">
+                    <span>عنوان محصول</span> <input type="text" class="form-control" id="Title" name="@ViewBag.ProductTitle" />
+                </div>
+
+                <div class="div">
+                    <span>از قیمت</span>   <input type="number" name="@ViewBag.minPrice" value="0" id="minPrice" class="form-control" />
+                </div>
+                <div class="div">
+                    <span>تا قیمت</span>  <input type="number" name="@ViewBag.maxPrice" value="0" id="maxPrice" class="form-control" />
+                </div>
+
+                @{
+                    List<DataLayer.Product_Groups> list = ViewBag.Group;
+                }
+
+                <div class="div">
+                    <div class="dropdown">
+                        <a class="btn btn-default" id="dLabel" data-target="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            لیست گروه ها
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            @foreach (var group in list.Where(g => g.ParentID == null))
+                            {
+                                <li>
+                                    <div class="inputCheckbox">
+
+                                        <input type="checkbox" class="checkbox" aria-labelledby="dropdownSubGroup" name="selectedGroup" value="@group.GroupID" />
+                                    </div>
+                                    <div class="inputCheckbox">
+
+                                        <p>@group.GroupTitle</p>
+                                    </div>
+                                    @if (list.Any(g => g.ParentID == group.GroupID))
+                                    {
+                                        <ul style="list-style-type:none">
+                                            @foreach (var subGroup in list.Where(g => g.ParentID == group.GroupID))
+                                            {
+
+                                                <li>
+                                                    <div class="inputCheckbox">
+                                                        <input type="checkbox" class="checkbox" aria-labelledby="dropdownSubGroup" name="selectedGroup" value="@subGroup.GroupID" />
+                                                    </div>
+                                                    <div class="inputCheckbox">
+                                                        <p>@subGroup.GroupTitle</p>
+                                                    </div>
+
+                                                </li>
+
+                                            }
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        </ul>
+
+                    </div>
+                </div>
+
+
+                <div class="div">
+                    <button type="submit" class="btn btn-success">جستوجو</button>
+
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+

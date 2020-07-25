@@ -1,0 +1,33 @@
+﻿@model IEnumerable<DataLayer.Companies>
+
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-6 col-lg-8">
+            <div class="text-center">
+                <div class="heading_s1 text-center animation" data-animation="fadeInUp"
+                     data-animation-delay="0.02s">
+                    <h2>شریک زندگی ما</h2>
+                </div>
+                <p class="animation" data-animation="fadeInUp" data-animation-delay="0.03s"><!--Text--></p>
+                <div class="small_divider"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row ltr">
+        <div class="col-12 animation" data-animation="fadeInUp" data-animation-delay="0.02s">
+            <div class="carousel_slide5 owl-carousel owl-theme" data-margin="30" data-dots="false" data-loop="true"
+                 data-autoplay="true">
+                @foreach(var item in Model)
+                {
+                <div class="items">
+                    <a href="#"><img src="~/Images/CompaniesLogo/@item.ImageName" alt="@item.Title"></a>
+                </div>
+                }
+                
+      
+            </div>
+        </div>
+    </div>
+</div>

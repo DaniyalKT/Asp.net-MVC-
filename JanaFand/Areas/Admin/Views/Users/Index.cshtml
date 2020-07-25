@@ -1,0 +1,174 @@
+﻿@model IEnumerable<DataLayer.Users>
+
+@{
+    ViewBag.Title = "کاربران ";
+}
+
+
+
+<p>
+    <a class=" btn btn-primary btn-lg" id="CreateUser">
+        <i class="icon-user"></i>
+        افزودن کاربر
+    </a>
+</p>
+<br />
+<div class="col-md-2">
+    <form action="/Admin/Search/SearchUser">
+        <div class="input-group custom-search-form">
+            <input type="text" class="form-control" name="q" placeholder="جستوجوی کاربر...">
+            <span class="input-group-btn">
+                <a class="btn btn-default">
+                    <i class="fa fa-search"></i>
+                </a>
+            </span>
+        </div>
+    </form>
+</div>
+<br /><br />
+<br />
+<table class="table table-bordered table-striped table-condensed">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Roles.RoleTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegisterDate)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr id="user_@(item.UserID)">
+
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Roles.RoleTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+        @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostalCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @if (item.IsActive)
+            {
+                <p class="label label-success">حساب کاربری فعال است</p>
+            }
+            else
+            {
+                <p class="label label-danger">حساب کاربری غیر فعال است</p>
+            }
+        </td>
+        <td>
+            @item.RegisterDate.ToString("dddd, dd MMMM yyyy")
+        </td>
+
+        <td>
+            <a class="btn btn-warning  btn-xs btn-radius" onclick="editUser(@item.UserID)">
+                <i class="glyphicon glyphicon-edit"></i>
+            </a>
+            <a class="btn btn-danger btn-radius btn-xs" onclick="deleteUser(@item.UserID)">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a>
+        </td>
+    </tr>
+    }
+
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Modal-->
+
+
+
+
+@section Scripts{
+    <script>
+        $("#CreateUser").click(function () {
+            $.get("/Admin/Users/Create", function (result) {
+
+                $("#myModal").modal();
+                $("#myModalLabel").html("ثبت کاربر جدید");
+                $("#myModalBody").html(result);
+
+            });
+        });
+
+        function editUser(id) {
+            $.get("/Admin/Users/Edit/" + id, function (result) {
+
+                $("#myModal").modal();
+                $("#myModalLabel").html("ویرایش اطلاعات کاربر");
+                $("#myModalBody").html(result);
+
+            });
+        }
+
+        function deleteUser(id) {
+
+
+            $.confirm({
+                title: 'حذف کاربر!',
+                content: 'آیا از حذف این کاربر مطمئن هستید ؟',
+                buttons: {
+                    بله: function () {
+                        $.get("/Admin/Users/Delete/" + id, function () {
+                            $("#user_" + id).hide('slow');
+                        });
+                    },
+                    خیر: function () {
+
+                    },
+                }
+            });
+
+
+        }
+    </script>
+}
+
+

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<DataLayer.OurChoice>
+
+@{
+    ViewBag.Title = "چرا انتخاب ما؟";
+}
+
+
+<p>
+    <a href="/Admin/OurChoices/Create" class="btn btn-primary btn-lg">
+        <i class="glyphicon glyphicon-plus"></i> افزودن
+    </a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShortDescription)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr id="ourChoice_@(item.ChoiceID)">
+        <td>
+
+            <img src="~/Images/LogoChoice/@item.ImageName" style="max-width:70px; background-color:forestgreen; padding:8px" class="img-circle" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShortDescription)
+        </td>
+
+        <td>
+            <a href="/Admin/OurChoices/Edit/@item.ChoiceID" class="btn btn-warning btn-sm">
+                <i class="glyphicon glyphicon-edit"></i>
+            </a>
+            <a onclick="deleteChoice(@item.ChoiceID)" class="btn btn-danger btn-sm">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<script>
+
+    function deleteChoice(id) {
+
+        $.confirm({
+            title: 'حذف !',
+            content: 'آیا از حذف مطمئن هستید ؟',
+            buttons: {
+                بله: function () {
+                    $.get("/Admin/OurChoices/Delete/" + id, function () {
+                        $("#ourChoice_" + id).hide('slow');
+                    });
+                },
+                خیر: function () {
+
+                },
+            }
+        });
+    }
+
+</script>

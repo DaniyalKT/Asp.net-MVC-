@@ -1,0 +1,89 @@
+﻿
+
+@{
+    ViewBag.Title = "دسته بندی محصولات";
+}
+
+
+<p>
+    <a class="btn btn-primary btn-lg" onclick="Create()">افزودن سر گروه</a>
+</p>
+
+<div id="ListGroups">
+
+    @Html.Action("ListGroup")
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Modal-->
+
+
+@section Scripts{
+    <!--Ajax Code-->
+    <script src="~/Scripts/modal.js"></script>
+    <script>
+
+        //Create
+        function Create(parentId) {
+
+            $.get("/Admin/Product_Groups/Create/" + parentId, function (result) {
+
+                $("#myModal").modal();
+                $("#myModalLabel").html("افزودن گروه جدید");
+                $("#myModalBody").html(result);
+
+            });
+
+        }
+
+        //Edit
+        function Edit(id) {
+
+            $.get("/Admin/Product_Groups/Edit/" + id, function (result) {
+
+                $("#myModal").modal('show');
+                $("#myModalLabel").html("ویرایش گروه");
+                $("#myModalBody").html(result);
+         
+            });
+        }
+
+        //Delete
+        function Delete(id) {
+            $.confirm({
+                title: 'حذف گروه !',
+                content:'آیا از حذف  مطمئن هستید ؟',
+                buttons:{
+                    بله: function () {
+                        $.get("/Admin/Product_Groups/Delete/" + id, function () {
+                            $("#Group_" + id).hide('slow');
+                        });
+                    },
+                    خیر: function(){
+
+                    }
+                }
+            });
+        }
+
+        //Close modal after Changing
+        function success() {
+            $("#myModal").modal('hide');
+        }
+
+    </script>
+}

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DataLayer.Companies>
+
+@{
+    ViewBag.Title = "شرکت ها";
+}
+
+
+<p>
+    <a class="btn btn-primary btn-lg" href="/Admin/Companies/Create">
+        <i class="glyphicon glyphicon-plus"></i> افزودن 
+    </a>
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ImageName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr id="company_@(item.CompanyID)">
+
+        <td>
+             <img src="~/Images/CompaniesLogo/@item.ImageName" style="width:200px; height:200px" class="thumbnail" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            <a class="btn btn-warning btn-sm" href="/Admin/Companies/Edit/@item.CompanyID">
+                <i class="glyphicon glyphicon-edit"></i>
+            </a>
+
+            <a class="btn btn-danger btn-sm" onclick="deleteCompany(@item.CompanyID)">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>
+
+
+<script>
+
+    function deleteCompany(id) {
+
+        $.confirm({
+            title: 'حذف !',
+            content: 'آیا از حذف مطمئن هستید ؟',
+            buttons: {
+                بله: function () {
+                    $.get("/Admin/Companies/Delete/" + id, function () {
+                        $("#company_" + id).hide('slow');
+                    });
+                },
+                خیر: function () {
+
+                },
+            }
+        });
+    }
+
+</script>
